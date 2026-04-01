@@ -1,834 +1,1742 @@
-<style>
-  * {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-  }
-  #app {
-    font-family: var(--font-serif);
-    color: var(--color-text-primary);
-    padding: 0 0 2rem;
-  }
-
-  /* Newspaper masthead */
-  .masthead {
-    text-align: center;
-    padding: 1.2rem 1rem 0.8rem;
-    border-bottom: 3px double var(--color-text-primary);
-    margin-bottom: 0;
-  }
-  .paper-name {
-    font-family: var(--font-serif);
-    font-size: 32px;
-    font-weight: 500;
-    letter-spacing: 0.02em;
-    line-height: 1;
-  }
-  .paper-tagline {
-    font-size: 11px;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--color-text-secondary);
-    margin-top: 4px;
-    font-family: var(--font-sans);
-  }
-  .paper-dateline {
-    font-size: 11px;
-    color: var(--color-text-tertiary);
-    margin-top: 6px;
-    font-family: var(--font-sans);
-    display: flex;
-    justify-content: space-between;
-    padding: 4px 0;
-    border-top: 1px solid var(--color-border-tertiary);
-    border-bottom: 1px solid var(--color-border-tertiary);
-  }
-
-  .screen {
-    display: none;
-  }
-  .screen.active {
-    display: block;
-  }
-
-  /* Intro */
-  #intro-screen {
-    padding: 2rem 1.25rem;
-    text-align: center;
-  }
-  .intro-kicker {
-    font-size: 11px;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    font-family: var(--font-sans);
-    color: var(--color-text-secondary);
-    margin-bottom: 0.5rem;
-  }
-  .intro-headline {
-    font-size: 26px;
-    font-weight: 500;
-    font-family: var(--font-serif);
-    line-height: 1.2;
-    margin-bottom: 0.75rem;
-  }
-  .intro-deck {
-    font-size: 14px;
-    line-height: 1.7;
-    color: var(--color-text-secondary);
-    font-family: var(--font-sans);
-    max-width: 420px;
-    margin: 0 auto 1.5rem;
-  }
-  .intro-rule {
-    border: none;
-    border-top: 1px solid var(--color-border-secondary);
-    margin: 1.25rem 0;
-  }
-  .byline {
-    font-size: 12px;
-    font-family: var(--font-sans);
-    color: var(--color-text-tertiary);
-    letter-spacing: 0.04em;
-    margin-bottom: 1.25rem;
-  }
-  .start-btn {
-    background: var(--color-text-primary);
-    color: var(--color-background-primary);
-    border: none;
-    padding: 11px 28px;
-    font-size: 13px;
-    font-family: var(--font-sans);
-    font-weight: 500;
-    cursor: pointer;
-    letter-spacing: 0.04em;
-  }
-  .start-btn:hover {
-    opacity: 0.82;
-  }
-
-  /* HUD */
-  .hud {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0.5rem 1.25rem;
-    border-bottom: 1px solid var(--color-border-secondary);
-    font-family: var(--font-sans);
-    font-size: 12px;
-    color: var(--color-text-secondary);
-    background: var(--color-background-secondary);
-  }
-  .hud-score {
-    font-weight: 500;
-    color: var(--color-text-primary);
-    font-size: 13px;
-  }
-  .edition-tag {
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    font-size: 11px;
-  }
-
-  /* Article card */
-  .article-wrap {
-    padding: 1.25rem 1.25rem 0;
-  }
-  .article-kicker {
-    font-size: 10px;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    font-family: var(--font-sans);
-    color: var(--color-text-secondary);
-    margin-bottom: 0.4rem;
-    border-top: 2px solid var(--color-text-primary);
-    padding-top: 0.4rem;
-  }
-  .article-headline {
-    font-size: 20px;
-    font-weight: 500;
-    font-family: var(--font-serif);
-    line-height: 1.25;
-    margin-bottom: 0.4rem;
-  }
-  .article-byline {
-    font-size: 11px;
-    font-family: var(--font-sans);
-    color: var(--color-text-tertiary);
-    margin-bottom: 0.75rem;
-    padding-bottom: 0.5rem;
-    border-bottom: 1px solid var(--color-border-tertiary);
-  }
-
-  .evidence-box {
-    border: 1px solid var(--color-border-secondary);
-    padding: 1rem;
-    margin-bottom: 1rem;
-    background: var(--color-background-secondary);
-  }
-  .evidence-label {
-    font-size: 10px;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    font-family: var(--font-sans);
-    color: var(--color-text-tertiary);
-    margin-bottom: 0.5rem;
-  }
-  .evidence-text {
-    font-size: 14px;
-    font-family: var(--font-serif);
-    line-height: 1.75;
-    color: var(--color-text-primary);
-  }
-  .evidence-caption {
-    font-size: 11px;
-    font-family: var(--font-sans);
-    color: var(--color-text-secondary);
-    margin-top: 0.5rem;
-    font-style: italic;
-  }
-
-  .img-placeholder {
-    width: 100%;
-    height: 160px;
-    background: var(--color-background-tertiary);
-    border: 1px solid var(--color-border-tertiary);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 6px;
-    margin-bottom: 0.5rem;
-  }
-  .img-ph-label {
-    font-size: 11px;
-    font-family: var(--font-sans);
-    color: var(--color-text-tertiary);
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-  }
-  .actual-img {
-    width: 100%;
-    max-height: 200px;
-    object-fit: cover;
-    border: 1px solid var(--color-border-tertiary);
-    display: block;
-    margin-bottom: 0.5rem;
-  }
-
-  /* Verdict */
-  .verdict-section {
-    padding: 0 1.25rem;
-  }
-  .verdict-label {
-    font-size: 11px;
-    font-family: var(--font-sans);
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--color-text-secondary);
-    margin-bottom: 0.5rem;
-  }
-  .verdict-cols {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 8px;
-  }
-  .verdict-btn {
-    padding: 12px 8px;
-    border: 1px solid var(--color-border-secondary);
-    background: var(--color-background-primary);
-    font-size: 13px;
-    font-family: var(--font-sans);
-    font-weight: 500;
-    cursor: pointer;
-    text-align: center;
-    line-height: 1.3;
-  }
-  .verdict-btn:hover {
-    background: var(--color-background-secondary);
-  }
-  .verdict-btn.ai-btn {
-    border-left: 3px solid #a32d2d;
-    color: #a32d2d;
-  }
-  .verdict-btn.real-btn {
-    border-left: 3px solid #3b6d11;
-    color: #3b6d11;
-  }
-
-  /* Feedback */
-  .feedback-box {
-    margin: 0.75rem 1.25rem 0;
-    padding: 0.75rem 1rem;
-    border: 1px solid var(--color-border-secondary);
-    font-family: var(--font-sans);
-    font-size: 13px;
-    line-height: 1.6;
-  }
-  .feedback-box.correct {
-    border-left: 3px solid #3b6d11;
-    background: var(--color-background-success);
-    color: var(--color-text-success);
-  }
-  .feedback-box.wrong {
-    border-left: 3px solid #a32d2d;
-    background: var(--color-background-danger);
-    color: var(--color-text-danger);
-  }
-  .feedback-headline {
-    font-weight: 500;
-    font-size: 13px;
-    margin-bottom: 3px;
-  }
-  .feedback-source {
-    font-size: 12px;
-    opacity: 0.85;
-    margin-bottom: 4px;
-  }
-  .feedback-hint {
-    font-size: 12px;
-    opacity: 0.75;
-    font-style: italic;
-  }
-  .next-btn {
-    display: block;
-    width: calc(100% - 2.5rem);
-    margin: 0.75rem 1.25rem 0;
-    padding: 11px;
-    border: 1px solid var(--color-border-secondary);
-    background: var(--color-background-primary);
-    font-size: 13px;
-    font-family: var(--font-sans);
-    font-weight: 500;
-    cursor: pointer;
-    letter-spacing: 0.04em;
-  }
-  .next-btn:hover {
-    background: var(--color-background-secondary);
-  }
-
-  .loading-col {
-    text-align: center;
-    padding: 2rem 1.25rem;
-    font-family: var(--font-sans);
-    color: var(--color-text-secondary);
-    font-size: 13px;
-  }
-  .spinner {
-    width: 18px;
-    height: 18px;
-    border: 1.5px solid var(--color-border-secondary);
-    border-top-color: var(--color-text-primary);
-    border-radius: 50%;
-    animation: spin 0.75s linear infinite;
-    margin: 0 auto 0.75rem;
-  }
-  @keyframes spin {
-    to {
-      transform: rotate(360deg);
-    }
-  }
-
-  /* Results */
-  #results-screen {
-    padding: 1.5rem 1.25rem;
-    text-align: center;
-  }
-  .results-headline {
-    font-size: 24px;
-    font-weight: 500;
-    font-family: var(--font-serif);
-    margin-bottom: 0.25rem;
-  }
-  .results-deck {
-    font-size: 13px;
-    font-family: var(--font-sans);
-    color: var(--color-text-secondary);
-    margin-bottom: 1.25rem;
-    line-height: 1.6;
-  }
-  .score-display {
-    font-size: 48px;
-    font-weight: 500;
-    font-family: var(--font-serif);
-    line-height: 1;
-    margin-bottom: 0.25rem;
-  }
-  .score-denom {
-    font-size: 14px;
-    font-family: var(--font-sans);
-    color: var(--color-text-secondary);
-    margin-bottom: 1.5rem;
-  }
-  .breakdown {
-    text-align: left;
-    border-top: 1px solid var(--color-border-secondary);
-    border-bottom: 1px solid var(--color-border-secondary);
-    margin: 1rem 0;
-  }
-  .brow {
-    display: flex;
-    justify-content: space-between;
-    padding: 7px 0;
-    border-bottom: 1px solid var(--color-border-tertiary);
-    font-size: 13px;
-    font-family: var(--font-sans);
-  }
-  .brow:last-child {
-    border-bottom: none;
-  }
-  .brow-label {
-    color: var(--color-text-secondary);
-  }
-  .restart-btn {
-    background: var(--color-text-primary);
-    color: var(--color-background-primary);
-    border: none;
-    padding: 11px 28px;
-    font-size: 13px;
-    font-family: var(--font-sans);
-    font-weight: 500;
-    cursor: pointer;
-    margin-top: 0.5rem;
-  }
-  .restart-btn:hover {
-    opacity: 0.82;
-  }
-</style>
-
-<div id="app">
-  <div class="masthead">
-    <div class="paper-name">The Daily Detector</div>
-    <div class="paper-tagline">
-      Truth in Every Pixel &bull; Fact or Fabrication &bull; Est. 2024
-    </div>
-    <div class="paper-dateline">
-      <span id="dateline-left">Vol. 1, No. 1</span>
-      <span>Special Edition: AI vs. Reality</span>
-      <span id="dateline-right">15 Exhibits</span>
-    </div>
-  </div>
-
-  <div id="intro-screen" class="screen active">
-    <div style="padding: 1.5rem 1.25rem 0">
-      <div class="article-kicker">Breaking investigation</div>
-      <div class="intro-headline">
-        Can You Tell the Real From the Artificial?
-      </div>
-      <hr class="intro-rule" />
-      <div class="byline">
-        By Our Bureau of AI Affairs &nbsp;&bull;&nbsp; Special Report
-      </div>
-      <div class="intro-deck">
-        Fifteen pieces of evidence — images and text excerpts — have been
-        submitted to our bureau. Some are genuine. Some were manufactured by
-        artificial intelligence. Your job: file the correct verdict on each one
-        before deadline.
-      </div>
-      <div
-        style="
-          font-size: 12px;
-          font-family: var(--font-sans);
-          color: var(--color-text-tertiary);
-          margin-bottom: 1.25rem;
-          line-height: 1.6;
-        "
-      >
-        Images sourced from Wikimedia Commons (openly labeled AI-generated or
-        verified real). Text excerpts drawn from classic literature, research
-        papers, and AI-generated imitations.
-      </div>
-    </div>
-    <button class="start-btn" onclick="startGame()">Open the case file</button>
-  </div>
-
-  <div id="game-screen" class="screen">
-    <div class="hud">
-      <span class="edition-tag"
-        >Exhibit <span id="round-num">1</span> of 15</span
-      >
-      <span class="hud-score">Score: <span id="score-val">0</span></span>
-      <span class="edition-tag">Correct: <span id="correct-val">0</span></span>
-    </div>
-    <div id="article-body"></div>
-    <div class="verdict-section" id="verdict-section">
-      <div class="verdict-label">Your verdict</div>
-      <div class="verdict-cols">
-        <button class="verdict-btn ai-btn" onclick="submitVerdict(true)">
-          AI-generated
-        </button>
-        <button class="verdict-btn real-btn" onclick="submitVerdict(false)">
-          Genuinely real
-        </button>
-      </div>
-    </div>
-    <div id="feedback-zone"></div>
-    <button
-      id="next-btn"
-      class="next-btn"
-      style="display: none"
-      onclick="nextRound()"
-    >
-      Next exhibit &rarr;
-    </button>
-  </div>
-
-  <div id="results-screen" class="screen">
-    <div class="article-kicker">Final verdict</div>
-    <div class="results-headline" id="rank-headline"></div>
-    <div class="results-deck" id="rank-deck"></div>
-    <div class="score-display" id="final-score-num">0</div>
-    <div class="score-denom">out of 15 correct</div>
-    <div class="breakdown" id="breakdown"></div>
-    <button class="restart-btn" onclick="restartGame()">
-      File another report
-    </button>
-  </div>
-</div>
-
-<script>
-  const TODAY = new Date().toLocaleDateString("en-US", {
-    weekday: "long",
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-  });
-  document.getElementById("dateline-left").textContent = "Vol. 1, No. 1";
-
-  const REAL_TEXTS = [
-    {
-      text: "It was the best of times, it was the worst of times, it was the age of wisdom, it was the age of foolishness, it was the epoch of belief, it was the epoch of incredulity, it was the season of Light, it was the season of Darkness...",
-      source: "A Tale of Two Cities — Charles Dickens, 1859",
-      hint: "The antithetical repetition and Victorian cadence are unmistakably Dickens — authentic 19th-century prose.",
-      kicker: "Literary fiction",
-      headline: "Victorian Prose Under Examination",
-    },
-    {
-      text: "To be, or not to be, that is the question: Whether 'tis nobler in the mind to suffer the slings and arrows of outrageous fortune, or to take arms against a sea of troubles and by opposing end them.",
-      source: "Hamlet — William Shakespeare, c.1600",
-      hint: "Shakespeare's iambic pentameter and specific phrasing have been authenticated by centuries of scholarship.",
-      kicker: "Classic drama",
-      headline: "Soliloquy Submitted as Evidence",
-    },
-    {
-      text: "The sky above the port was the color of television, tuned to a dead channel. 'It's not like I'm using,' Case heard someone say, as he shouldered his way through the crowd around the door of the Chat.",
-      source: "Neuromancer — William Gibson, 1984",
-      hint: "Gibson's opening line is among the most famous in science fiction — its gritty economy is a hallmark of his voice.",
-      kicker: "Speculative fiction",
-      headline: "Cyberpunk Passage Enters the Record",
-    },
-    {
-      text: "It is a truth universally acknowledged, that a single man in possession of a good fortune must be in want of a wife. However little known the feelings or views of such a man may be on his first entering a neighbourhood, this truth is so well fixed in the minds of the surrounding families...",
-      source: "Pride and Prejudice — Jane Austen, 1813",
-      hint: "Austen's ironic distancing and Regency-era sentence construction are hallmarks of authentic early 19th-century fiction.",
-      kicker: "Regency literature",
-      headline: "Opening Salvo From Austen's Archive",
-    },
-    {
-      text: "Two roads diverged in a yellow wood, and sorry I could not travel both and be one traveler, long I stood and looked down one as far as I could to where it bent in the undergrowth.",
-      source: "The Road Not Taken — Robert Frost, 1916",
-      hint: "Frost's colloquial formality, exact meter, and the specific autumnal imagery are fingerprints of his authentic verse.",
-      kicker: "American poetry",
-      headline: "Fork in the Road: Verse Under Review",
-    },
-    {
-      text: "We hold these truths to be self-evident, that all men are created equal, that they are endowed by their Creator with certain unalienable Rights, that among these are Life, Liberty and the pursuit of Happiness.",
-      source: "Declaration of Independence — Thomas Jefferson, 1776",
-      hint: "The legal-philosophical cadence and 18th-century rhetorical style are authenticated historical documents.",
-      kicker: "Historical document",
-      headline: "Founding Declaration Submitted to Bureau",
-    },
-    {
-      text: "The findings suggest a statistically significant correlation (p < 0.001) between early childhood literacy exposure and long-term academic performance, controlling for socioeconomic factors across a sample of 4,200 subjects observed over 12 years.",
-      source:
-        "Longitudinal study on childhood literacy, Journal of Educational Research, 2003",
-      hint: "The specific statistical notation, sample size, and hedged academic language are markers of genuine pre-genAI research writing.",
-      kicker: "Research paper",
-      headline: "Academic Study Enters Evidence Log",
-    },
-  ];
-
-  const AI_IMAGES = [
-    {
-      url: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8e/AI_art_3_young_ladies_from_South_Asia_smiling_in_conversation.png/640px-AI_art_3_young_ladies_from_South_Asia_smiling_in_conversation.png",
-      source:
-        "Wikimedia Commons — openly labeled AI-generated art (Stable Diffusion)",
-      hint: "The hyper-smooth skin, idealized symmetry, and slightly uniform lighting are classic diffusion model tells.",
-      kicker: "Image exhibit",
-      headline: "Portrait Submitted for Verification",
-    },
-    {
-      url: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/69/AI_art_Black_cut_out_of_a_large_bird_with_outstretched_wings.png/640px-AI_art_Black_cut_out_of_a_large_bird_with_outstretched_wings.png",
-      source: "Wikimedia Commons — openly labeled AI-generated art",
-      hint: "The clean silhouette and synthetic sharpness are hallmarks of AI image generation, not physical photography.",
-      kicker: "Image exhibit",
-      headline: "Avian Silhouette Enters the Record",
-    },
-    {
-      url: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d2/AI_art_Fresco_of_3_young_ladies_from_south-west_Asia.png/640px-AI_art_Fresco_of_3_young_ladies_from_south-west_Asia.png",
-      source: "Wikimedia Commons — openly labeled AI-generated art",
-      hint: "The texture mimics ancient fresco technique but the faces have the uncanny smoothness of a diffusion model output.",
-      kicker: "Image exhibit",
-      headline: "Fresco-Style Image Filed for Review",
-    },
-  ];
-
-  const REAL_IMAGES = [
-    {
-      url: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/Camponotus_flavomarginatus_ant.jpg/640px-Camponotus_flavomarginatus_ant.jpg",
-      source:
-        "Wikimedia Commons — real macro photograph of Camponotus flavomarginatus ant",
-      hint: "The grain, natural depth of field, and organic imperfections of macro photography are impossible to fake at this fidelity.",
-      kicker: "Image exhibit",
-      headline: "Macro Photograph Logged as Exhibit",
-    },
-    {
-      url: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/47/PNG_transparency_demonstration_1.png/640px-PNG_transparency_demonstration_1.png",
-      source: "Wikimedia Commons — real graphic design demonstration image",
-      hint: "This is a standard real graphic used to demonstrate PNG transparency — a digitally created but non-AI human-made image.",
-      kicker: "Image exhibit",
-      headline: "Graphic Transparency Sample Filed",
-    },
-    {
-      url: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Biologia_Centrali-Americana_Insecta_Lepidoptera-Rhopalocera_pl100.jpg/640px-Biologia_Centrali-Americana_Insecta_Lepidoptera-Rhopalocera_pl100.jpg",
-      source:
-        "Wikimedia Commons — real 19th-century scientific illustration, public domain",
-      hint: "The hand-drawn lines, aging paper texture, and period printing artifacts confirm this is a genuine antique scientific plate.",
-      kicker: "Image exhibit",
-      headline: "Historical Illustration Submitted",
-    },
-  ];
-
-  let rounds = [],
-    currentRound = 0,
-    score = 0,
-    correctCount = 0,
-    history = [],
-    waitingForNext = false;
-
-  async function buildRounds() {
-    const realTexts = [...REAL_TEXTS]
-      .sort(() => Math.random() - 0.5)
-      .slice(0, 4);
-    const aiTexts = await generateAITexts(4);
-    const aiImgs = [...AI_IMAGES].sort(() => Math.random() - 0.5).slice(0, 3);
-    const realImgs = [...REAL_IMAGES]
-      .sort(() => Math.random() - 0.5)
-      .slice(0, 3);
-
-    const all = [
-      ...realTexts.map((r) => ({ type: "text", isAI: false, ...r })),
-      ...aiTexts.map((r) => ({ type: "text", isAI: true, ...r })),
-      ...aiImgs.map((r) => ({ type: "image", isAI: true, ...r })),
-      ...realImgs.map((r) => ({ type: "image", isAI: false, ...r })),
-    ]
-      .sort(() => Math.random() - 0.5)
-      .slice(0, 15);
-    rounds = all;
-  }
-
-  async function generateAITexts(n) {
-    const prompts = [
-      {
-        p: "Write a literary paragraph of 3-4 sentences in the style of a Victorian novel, about a fictional character named Elara arriving at a foggy English manor. Respond with only the text.",
-        kicker: "Literary fiction",
-        headline: "Victorian Passage Flagged for Review",
-        hint: "AI Victorian prose often gets the vocabulary right but lacks the biographical specificity real authors embed in every sentence.",
-      },
-      {
-        p: "Write a 3-4 sentence excerpt mimicking a 1990s scientific research paper abstract about the migration behavior of a fictional deep-sea fish species. Include a plausible-sounding p-value. Respond with only the text.",
-        kicker: "Research paper",
-        headline: "Research Abstract Submitted for Analysis",
-        hint: "AI academic writing over-hedges and uses slightly generic phrasing — the specificity of real data is hard to fabricate convincingly.",
-      },
-      {
-        p: "Write 3-4 sentences of free-verse poetry in the style of early 20th century modernism, about waiting at a train station at dusk. Respond with only the text.",
-        kicker: "Modernist poetry",
-        headline: "Free Verse Entered Into Evidence",
-      },
-      {
-        p: "Write the opening 3-4 sentences of a fictional 18th-century philosophical essay on the nature of liberty and civil society, in the style of Enlightenment writing. Respond with only the text.",
-        kicker: "Philosophical essay",
-        headline: "Enlightenment Essay Fragment on Record",
-      },
-    ];
-    const hints = [
-      "AI Victorian prose often gets the vocabulary right but lacks the biographical specificity real authors embed in every sentence.",
-      "AI academic writing over-hedges and uses slightly generic phrasing — real data specificity is hard to fabricate convincingly.",
-      "AI poetry defaults to familiar imagery without the surprising specificity of real modernist poets.",
-      "AI Enlightenment prose can mirror the syntax but often lacks the sharp argumentative edge of genuine 18th-century philosophy.",
-    ];
-    const res = [];
-    for (let i = 0; i < n; i++) {
-      try {
-        const r = await fetch("https://api.anthropic.com/v1/messages", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            model: "claude-sonnet-4-20250514",
-            max_tokens: 1000,
-            messages: [{ role: "user", content: prompts[i].p }],
-          }),
-        });
-        const d = await r.json();
-        const text = d.content
-          ?.map((b) => b.text || "")
-          .join("")
-          .trim();
-        res.push({
-          text,
-          source: "AI-generated (prompted by game engine)",
-          hint: hints[i],
-          kicker: prompts[i].kicker,
-          headline: prompts[i].headline,
-        });
-      } catch (e) {
-        res.push({
-          text: "The mist curled about Elara's ankles as she approached Thornwick Hall, its windows dark as forgotten promises. The iron gate groaned with the patience of things long neglected.",
-          source: "AI-generated (prompted by game engine)",
-          hint: hints[i],
-          kicker: prompts[i].kicker,
-          headline: prompts[i].headline,
-        });
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Human or Not</title>
+    <style>
+      :root {
+        --paper: #f4eddc;
+        --paper-deep: #e8dec7;
+        --paper-shadow: rgba(89, 68, 29, 0.14);
+        --ink: #181411;
+        --ink-soft: #4f463c;
+        --ink-faint: #776d62;
+        --line: rgba(40, 29, 12, 0.2);
+        --line-strong: rgba(40, 29, 12, 0.45);
+        --accent: #8a2f1c;
+        --accent-soft: rgba(138, 47, 28, 0.1);
+        --truth: #295f2d;
+        --truth-soft: rgba(41, 95, 45, 0.12);
+        --fabrication: #8a2f1c;
+        --fabrication-soft: rgba(138, 47, 28, 0.12);
+        --shadow-lg: 0 22px 60px rgba(40, 29, 12, 0.16);
+        --shadow-sm: 0 10px 24px rgba(40, 29, 12, 0.08);
+        --font-serif: "Georgia", "Times New Roman", serif;
+        --font-sans: "Arial", "Helvetica Neue", sans-serif;
       }
-    }
-    return res;
-  }
 
-  function showScreen(id) {
-    document
-      .querySelectorAll(".screen")
-      .forEach((s) => s.classList.remove("active"));
-    document.getElementById(id).classList.add("active");
-  }
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
 
-  async function startGame() {
-    showScreen("game-screen");
-    document.getElementById("article-body").innerHTML =
-      '<div class="loading-col"><div class="spinner"></div>Pulling exhibits from the archive...</div>';
-    document.getElementById("verdict-section").style.display = "none";
-    await buildRounds();
-    currentRound = 0;
-    score = 0;
-    correctCount = 0;
-    history = [];
-    loadRound();
-  }
+      body {
+        min-height: 100vh;
+        color: var(--ink);
+        font-family: var(--font-serif);
+        background:
+          radial-gradient(circle at top, rgba(255, 255, 255, 0.35), transparent 35%),
+          linear-gradient(180deg, #d4c6a4 0%, #c4b289 100%);
+      }
 
-  function loadRound() {
-    waitingForNext = false;
-    const r = rounds[currentRound];
-    document.getElementById("round-num").textContent = currentRound + 1;
-    document.getElementById("score-val").textContent = score;
-    document.getElementById("correct-val").textContent = correctCount;
-    document.getElementById("feedback-zone").innerHTML = "";
-    document.getElementById("next-btn").style.display = "none";
-    document.getElementById("verdict-section").style.display = "block";
+      body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        opacity: 0.22;
+        background-image:
+          linear-gradient(rgba(72, 56, 21, 0.05) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(72, 56, 21, 0.04) 1px, transparent 1px);
+        background-size: 100% 4px, 4px 100%;
+        mix-blend-mode: multiply;
+      }
 
-    let contentHtml = "";
-    if (r.type === "text") {
-      contentHtml = `<div class="evidence-box"><div class="evidence-label">Text exhibit</div><div class="evidence-text">"${r.text}"</div></div>`;
-    } else {
-      contentHtml = `<div class="evidence-box"><div class="evidence-label">Image exhibit</div><img src="${r.url}" class="actual-img" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" alt="Evidence image"><div class="img-placeholder" style="display:none"><div class="img-ph-label">Image unavailable</div><div style="font-size:11px;font-family:var(--font-sans);color:var(--color-text-tertiary)">(Check connection)</div></div><div class="evidence-caption">Exhibit ${currentRound + 1} — sourced from public domain archive</div></div>`;
-    }
+      #app {
+        width: min(1180px, calc(100% - 24px));
+        margin: 18px auto;
+        background:
+          linear-gradient(180deg, rgba(255, 255, 255, 0.55), transparent 20%),
+          var(--paper);
+        border: 1px solid rgba(60, 43, 15, 0.28);
+        box-shadow: var(--shadow-lg);
+        position: relative;
+        overflow: hidden;
+      }
 
-    document.getElementById("article-body").innerHTML = `
-    <div class="article-wrap">
-      <div class="article-kicker">${r.kicker}</div>
-      <div class="article-headline">${r.headline}</div>
-      <div class="article-byline">Filed by Bureau Staff &nbsp;&bull;&nbsp; Exhibit ${currentRound + 1} of 15</div>
-      ${contentHtml}
-    </div>`;
-  }
+      #app::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        background:
+          radial-gradient(circle at 15% 20%, rgba(255, 255, 255, 0.24), transparent 18%),
+          radial-gradient(circle at 85% 15%, rgba(97, 73, 19, 0.06), transparent 18%);
+      }
 
-  function submitVerdict(guessedAI) {
-    if (waitingForNext) return;
-    waitingForNext = true;
-    const r = rounds[currentRound];
-    const correct = guessedAI === r.isAI;
-    if (correct) {
-      score += 10;
-      correctCount++;
-    }
-    history.push({ type: r.type, correct, isAI: r.isAI });
+      .screen {
+        display: none;
+      }
 
-    document.getElementById("score-val").textContent = score;
-    document.getElementById("correct-val").textContent = correctCount;
-    document.getElementById("verdict-section").style.display = "none";
+      .screen.active {
+        display: block;
+      }
 
-    const fz = document.getElementById("feedback-zone");
-    fz.innerHTML = `<div class="feedback-box ${correct ? "correct" : "wrong"}">
-    <div class="feedback-headline">${correct ? "Verdict confirmed." : "Incorrect filing."}</div>
-    <div class="feedback-source">This was <strong>${r.isAI ? "AI-generated" : "genuinely real"}</strong>. ${r.source}</div>
-    <div class="feedback-hint">${r.hint}</div>
-  </div>`;
+      .screen-reader {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
+      }
 
-    const nb = document.getElementById("next-btn");
-    nb.style.display = "block";
-    nb.textContent =
-      currentRound < 14 ? "Next exhibit \u2192" : "See final verdict \u2192";
-  }
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
 
-  function nextRound() {
-    currentRound++;
-    if (currentRound >= 15) showResults();
-    else loadRound();
-  }
+      .masthead {
+        position: relative;
+        padding: 18px 24px 14px;
+        border-bottom: 3px double var(--line-strong);
+        background:
+          linear-gradient(180deg, rgba(255, 255, 255, 0.45), rgba(255, 255, 255, 0.08)),
+          linear-gradient(90deg, rgba(138, 47, 28, 0.03), transparent 20%, transparent 80%, rgba(138, 47, 28, 0.03));
+      }
 
-  function showResults() {
-    document.getElementById("final-score-num").textContent = correctCount;
-    const ranks = [
-      [
-        0,
-        5,
-        "Rookie Reporter",
-        "You've got heart, but the fakes fooled you more than they should.",
-      ],
-      [
-        6,
-        9,
-        "Staff Writer",
-        "Decent instincts. A few more beats and you'll sharpen up.",
-      ],
-      [
-        10,
-        12,
-        "Senior Correspondent",
-        "Solid eye. Most fabrications don't slip past you.",
-      ],
-      [13, 14, "Investigative Editor", "Almost nothing escapes your scrutiny."],
-      [
-        15,
-        15,
-        "Bureau Chief",
-        "Perfect record. You see through every fabrication.",
-      ],
-    ];
-    const [, , rank, deck] =
-      ranks.find(([lo, hi]) => correctCount >= lo && correctCount <= hi) ||
-      ranks[0];
-    document.getElementById("rank-headline").textContent = rank;
-    document.getElementById("rank-deck").textContent = deck;
+      .masthead-topline {
+        display: flex;
+        justify-content: space-between;
+        gap: 12px;
+        align-items: center;
+        font-family: var(--font-sans);
+        text-transform: uppercase;
+        letter-spacing: 0.22em;
+        font-size: 10px;
+        color: var(--ink-faint);
+        margin-bottom: 8px;
+      }
 
-    const tC = history.filter((h) => h.type === "text" && h.correct).length;
-    const tT = history.filter((h) => h.type === "text").length;
-    const iC = history.filter((h) => h.type === "image" && h.correct).length;
-    const iT = history.filter((h) => h.type === "image").length;
-    const aiC = history.filter((h) => h.isAI && h.correct).length;
-    const aiT = history.filter((h) => h.isAI).length;
-    const realC = history.filter((h) => !h.isAI && h.correct).length;
-    const realT = history.filter((h) => !h.isAI).length;
+      .nameplate {
+        display: grid;
+        grid-template-columns: 1fr auto 1fr;
+        align-items: end;
+        gap: 14px;
+      }
 
-    document.getElementById("breakdown").innerHTML = `
-    <div class="brow"><span class="brow-label">Text rounds</span><span>${tC} / ${tT} correct</span></div>
-    <div class="brow"><span class="brow-label">Image rounds</span><span>${iC} / ${iT} correct</span></div>
-    <div class="brow"><span class="brow-label">AI-generated items spotted</span><span>${aiC} / ${aiT}</span></div>
-    <div class="brow"><span class="brow-label">Real items confirmed</span><span>${realC} / ${realT}</span></div>
-    <div class="brow"><span class="brow-label">Total score</span><span>${score} pts</span></div>`;
+      .nameplate-rule {
+        height: 1px;
+        background: var(--line-strong);
+        margin-bottom: 10px;
+      }
 
-    showScreen("results-screen");
-  }
+      .paper-name {
+        font-size: clamp(2.7rem, 6vw, 5rem);
+        text-align: center;
+        letter-spacing: 0.03em;
+        font-weight: 700;
+        line-height: 0.9;
+        text-transform: uppercase;
+      }
 
-  function restartGame() {
-    startGame();
-  }
-</script>
+      .paper-subtitle {
+        text-align: center;
+        font-family: var(--font-sans);
+        font-size: 11px;
+        letter-spacing: 0.28em;
+        text-transform: uppercase;
+        color: var(--ink-soft);
+        margin-top: 10px;
+      }
+
+      .paper-dateline {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 12px;
+        margin-top: 14px;
+        padding-top: 8px;
+        border-top: 1px solid var(--line);
+        font-family: var(--font-sans);
+        font-size: 11px;
+        color: var(--ink-soft);
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+      }
+
+      .paper-dateline span:nth-child(2) {
+        text-align: center;
+      }
+
+      .paper-dateline span:last-child {
+        text-align: right;
+      }
+
+      .main-shell {
+        padding: 22px;
+      }
+
+      .intro-layout {
+        display: grid;
+        grid-template-columns: 1.4fr 0.9fr;
+        gap: 24px;
+        align-items: stretch;
+      }
+
+      .frontpage-card,
+      .briefing-card,
+      .article-card,
+      .score-card,
+      .sidebar-card,
+      .results-card {
+        background: rgba(255, 251, 242, 0.86);
+        border: 1px solid var(--line);
+        box-shadow: var(--shadow-sm);
+        position: relative;
+      }
+
+      .frontpage-card {
+        padding: 24px;
+        overflow: hidden;
+      }
+
+      .frontpage-card::before,
+      .article-card::before,
+      .results-card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 18px;
+        right: 18px;
+        height: 3px;
+        background: linear-gradient(90deg, var(--ink), transparent 20%, transparent 80%, var(--ink));
+        opacity: 0.6;
+      }
+
+      .kicker {
+        font-family: var(--font-sans);
+        font-size: 10px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.22em;
+        color: var(--accent);
+        margin-bottom: 12px;
+      }
+
+      .headline {
+        font-size: clamp(2rem, 4vw, 3.6rem);
+        line-height: 0.94;
+        text-transform: uppercase;
+        font-weight: 700;
+        letter-spacing: 0.02em;
+        max-width: 10ch;
+      }
+
+      .subdeck {
+        margin-top: 18px;
+        font-size: 16px;
+        line-height: 1.75;
+        color: var(--ink-soft);
+        max-width: 58ch;
+      }
+
+      .frontpage-columns {
+        margin-top: 20px;
+        padding-top: 18px;
+        border-top: 1px solid var(--line);
+        column-count: 2;
+        column-gap: 22px;
+        font-size: 15px;
+        line-height: 1.75;
+      }
+
+      .frontpage-columns p + p {
+        margin-top: 12px;
+      }
+
+      .dropcap::first-letter {
+        float: left;
+        font-size: 3.5rem;
+        line-height: 0.8;
+        padding-right: 8px;
+        padding-top: 6px;
+      }
+
+      .briefing-card {
+        padding: 22px;
+        display: flex;
+        flex-direction: column;
+        gap: 18px;
+      }
+
+      .stamp {
+        align-self: flex-end;
+        border: 2px solid rgba(138, 47, 28, 0.6);
+        color: rgba(138, 47, 28, 0.8);
+        font-family: var(--font-sans);
+        text-transform: uppercase;
+        letter-spacing: 0.18em;
+        font-size: 10px;
+        padding: 8px 12px;
+        transform: rotate(-6deg);
+      }
+
+      .briefing-title,
+      .section-title {
+        font-size: 22px;
+        line-height: 1.1;
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+      }
+
+      .briefing-copy,
+      .sidebar-copy,
+      .results-copy {
+        color: var(--ink-soft);
+        font-family: var(--font-sans);
+        font-size: 14px;
+        line-height: 1.7;
+      }
+
+      .facts-list {
+        display: grid;
+        gap: 12px;
+      }
+
+      .fact-row {
+        display: grid;
+        grid-template-columns: 62px 1fr;
+        gap: 12px;
+        align-items: start;
+        padding-top: 10px;
+        border-top: 1px dashed var(--line);
+      }
+
+      .fact-label {
+        font-family: var(--font-sans);
+        text-transform: uppercase;
+        letter-spacing: 0.14em;
+        font-size: 10px;
+        color: var(--ink-faint);
+      }
+
+      .fact-value {
+        font-size: 14px;
+        line-height: 1.7;
+      }
+
+      .primary-btn,
+      .secondary-btn,
+      .verdict-btn {
+        appearance: none;
+        border: 1px solid var(--line-strong);
+        background: linear-gradient(180deg, rgba(255, 255, 255, 0.7), rgba(226, 213, 183, 0.7));
+        color: var(--ink);
+        cursor: pointer;
+        transition: transform 180ms ease, background 180ms ease, box-shadow 180ms ease;
+      }
+
+      .primary-btn:hover,
+      .secondary-btn:hover,
+      .verdict-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 12px 20px rgba(40, 29, 12, 0.12);
+      }
+
+      .primary-btn {
+        padding: 14px 18px;
+        font-family: var(--font-sans);
+        font-size: 12px;
+        text-transform: uppercase;
+        letter-spacing: 0.18em;
+        font-weight: 700;
+      }
+      .game-layout,
+      .results-layout {
+        display: grid;
+        grid-template-columns: minmax(0, 1.65fr) minmax(280px, 0.85fr);
+        gap: 22px;
+      }
+
+      .article-card {
+        padding: 22px;
+      }
+
+      .meta-bar {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 10px;
+        padding: 14px 0;
+        margin-bottom: 18px;
+        border-top: 1px solid var(--line);
+        border-bottom: 1px solid var(--line);
+        font-family: var(--font-sans);
+      }
+
+      .meta-item {
+        display: grid;
+        gap: 4px;
+      }
+
+      .meta-label {
+        text-transform: uppercase;
+        letter-spacing: 0.16em;
+        font-size: 10px;
+        color: var(--ink-faint);
+      }
+
+      .meta-value {
+        font-size: 13px;
+        color: var(--ink-soft);
+      }
+
+      .article-headline {
+        font-size: clamp(1.8rem, 3vw, 3rem);
+        line-height: 0.98;
+        text-transform: uppercase;
+        font-weight: 700;
+        letter-spacing: 0.02em;
+        margin-bottom: 8px;
+        max-width: 14ch;
+      }
+
+      .article-byline {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        align-items: center;
+        font-family: var(--font-sans);
+        font-size: 11px;
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+        color: var(--ink-faint);
+        margin-bottom: 18px;
+      }
+
+      .article-lede {
+        font-size: 15px;
+        color: var(--ink-soft);
+        line-height: 1.8;
+        margin-bottom: 16px;
+      }
+
+      .evidence-box {
+        border: 1px solid var(--line);
+        background:
+          linear-gradient(180deg, rgba(255, 255, 255, 0.75), rgba(240, 232, 214, 0.84));
+        padding: 18px;
+      }
+
+      .evidence-tag {
+        display: inline-block;
+        padding: 6px 10px;
+        font-family: var(--font-sans);
+        font-size: 10px;
+        font-weight: 700;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        border: 1px solid var(--line);
+        background: rgba(255, 255, 255, 0.66);
+        margin-bottom: 12px;
+      }
+
+      .evidence-text {
+        font-size: clamp(1.02rem, 2vw, 1.18rem);
+        line-height: 1.88;
+        color: var(--ink);
+      }
+
+      .evidence-image-frame {
+        border: 1px solid var(--line);
+        background: #efe5ce;
+        padding: 10px;
+      }
+
+      .actual-img {
+        width: 100%;
+        max-height: 440px;
+        object-fit: cover;
+        display: block;
+        filter: saturate(0.92) contrast(1.03);
+        background: rgba(106, 92, 62, 0.08);
+      }
+
+      .img-placeholder {
+        min-height: 260px;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        padding: 24px;
+        font-family: var(--font-sans);
+        font-size: 14px;
+        color: var(--ink-faint);
+        border: 1px dashed var(--line-strong);
+      }
+
+      .caption {
+        margin-top: 10px;
+        font-family: var(--font-sans);
+        font-size: 12px;
+        line-height: 1.6;
+        color: var(--ink-soft);
+      }
+
+      .verdict-panel {
+        margin-top: 18px;
+        padding-top: 16px;
+        border-top: 1px solid var(--line);
+      }
+
+      .verdict-label {
+        font-family: var(--font-sans);
+        font-size: 11px;
+        text-transform: uppercase;
+        letter-spacing: 0.18em;
+        color: var(--ink-faint);
+        margin-bottom: 10px;
+      }
+
+      .verdict-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
+      }
+
+      .verdict-btn {
+        text-align: left;
+        padding: 16px 16px 14px;
+        min-height: 118px;
+      }
+
+      .verdict-btn.ai-btn {
+        border-left: 5px solid var(--fabrication);
+      }
+
+      .verdict-btn.real-btn {
+        border-left: 5px solid var(--truth);
+      }
+
+      .verdict-heading {
+        display: flex;
+        justify-content: space-between;
+        gap: 12px;
+        align-items: baseline;
+        font-family: var(--font-sans);
+        margin-bottom: 8px;
+      }
+
+      .verdict-title {
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+        font-size: 12px;
+        font-weight: 700;
+      }
+
+      .verdict-key {
+        font-size: 11px;
+        color: var(--ink-faint);
+      }
+
+      .verdict-copy {
+        font-family: var(--font-sans);
+        font-size: 13px;
+        line-height: 1.6;
+        color: var(--ink-soft);
+      }
+
+      .feedback-box {
+        margin-top: 18px;
+        padding: 16px;
+        border: 1px solid var(--line);
+        font-family: var(--font-sans);
+        line-height: 1.7;
+      }
+
+      .feedback-box.correct {
+        background: var(--truth-soft);
+        border-left: 5px solid var(--truth);
+      }
+
+      .feedback-box.wrong {
+        background: var(--fabrication-soft);
+        border-left: 5px solid var(--fabrication);
+      }
+
+      .feedback-title {
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+        font-size: 11px;
+        margin-bottom: 8px;
+      }
+
+      .feedback-source {
+        color: var(--ink-soft);
+        margin-bottom: 8px;
+      }
+
+      .feedback-hint {
+        color: var(--ink);
+      }
+
+      .next-row {
+        display: flex;
+        justify-content: flex-end;
+        margin-top: 14px;
+      }
+
+      .secondary-btn {
+        padding: 12px 18px;
+        font-family: var(--font-sans);
+        font-size: 11px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.18em;
+      }
+      .sidebar-stack {
+        display: grid;
+        gap: 18px;
+      }
+
+      .sidebar-card,
+      .score-card {
+        padding: 18px;
+      }
+
+      .score-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 10px;
+        margin-top: 14px;
+      }
+
+      .score-box {
+        padding: 12px;
+        border: 1px solid var(--line);
+        text-align: center;
+        background: rgba(255, 255, 255, 0.45);
+      }
+
+      .score-label {
+        font-family: var(--font-sans);
+        text-transform: uppercase;
+        letter-spacing: 0.14em;
+        font-size: 10px;
+        color: var(--ink-faint);
+        margin-bottom: 6px;
+      }
+
+      .score-value {
+        font-size: 28px;
+        line-height: 1;
+      }
+
+      .progress-rail {
+        margin-top: 14px;
+        height: 10px;
+        border: 1px solid var(--line);
+        background: rgba(255, 255, 255, 0.4);
+        overflow: hidden;
+      }
+
+      .progress-bar {
+        height: 100%;
+        width: 0%;
+        background: linear-gradient(90deg, var(--accent), #bf6b2f);
+        transition: width 220ms ease;
+      }
+
+      .sidebar-list {
+        display: grid;
+        gap: 10px;
+        margin-top: 12px;
+      }
+
+      .sidebar-item {
+        display: flex;
+        justify-content: space-between;
+        gap: 12px;
+        align-items: baseline;
+        padding-bottom: 10px;
+        border-bottom: 1px dashed var(--line);
+        font-family: var(--font-sans);
+        font-size: 13px;
+      }
+
+      .sidebar-item:last-child {
+        border-bottom: none;
+        padding-bottom: 0;
+      }
+
+      .sidebar-item strong {
+        color: var(--ink);
+      }
+
+      .loading-panel {
+        display: grid;
+        place-items: center;
+        min-height: 420px;
+        text-align: center;
+        padding: 24px;
+      }
+
+      .loading-copy {
+        font-family: var(--font-sans);
+        color: var(--ink-soft);
+        font-size: 14px;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      .spinner {
+        width: 34px;
+        height: 34px;
+        border-radius: 50%;
+        border: 2px solid rgba(40, 29, 12, 0.16);
+        border-top-color: var(--accent);
+        animation: spin 0.8s linear infinite;
+        margin: 0 auto 12px;
+      }
+
+      .results-card {
+        padding: 22px;
+      }
+
+      .results-banner {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 18px;
+        padding-bottom: 14px;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .results-rank {
+        font-size: clamp(2rem, 4vw, 3.1rem);
+        line-height: 0.98;
+        text-transform: uppercase;
+        font-weight: 700;
+      }
+
+      .results-score {
+        padding: 10px 14px;
+        border: 1px solid var(--line-strong);
+        background: rgba(255, 255, 255, 0.5);
+        font-family: var(--font-sans);
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+        font-size: 11px;
+      }
+
+      .results-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 14px;
+      }
+
+      .results-stat {
+        padding: 14px;
+        border: 1px solid var(--line);
+        background: rgba(255, 255, 255, 0.48);
+      }
+
+      .results-stat-label {
+        font-family: var(--font-sans);
+        text-transform: uppercase;
+        letter-spacing: 0.14em;
+        font-size: 10px;
+        color: var(--ink-faint);
+        margin-bottom: 8px;
+      }
+
+      .results-stat-value {
+        font-size: 28px;
+        line-height: 1;
+        margin-bottom: 6px;
+      }
+
+      .results-stat-copy {
+        font-family: var(--font-sans);
+        color: var(--ink-soft);
+        font-size: 13px;
+        line-height: 1.6;
+      }
+
+      .results-sidebar {
+        display: grid;
+        gap: 18px;
+      }
+
+      .verdict-history {
+        margin-top: 12px;
+        display: grid;
+        grid-template-columns: repeat(5, minmax(0, 1fr));
+        gap: 8px;
+      }
+
+      .history-chip {
+        padding: 9px 8px;
+        border: 1px solid var(--line);
+        text-align: center;
+        font-family: var(--font-sans);
+        font-size: 11px;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        background: rgba(255, 255, 255, 0.46);
+      }
+
+      .history-chip.correct {
+        background: var(--truth-soft);
+        border-color: rgba(41, 95, 45, 0.28);
+      }
+
+      .history-chip.wrong {
+        background: var(--fabrication-soft);
+        border-color: rgba(138, 47, 28, 0.28);
+      }
+      @media (max-width: 980px) {
+        .intro-layout,
+        .game-layout,
+        .results-layout {
+          grid-template-columns: 1fr;
+        }
+
+        .paper-dateline,
+        .meta-bar {
+          grid-template-columns: 1fr 1fr;
+        }
+
+        .frontpage-columns {
+          column-count: 1;
+        }
+      }
+
+      @media (max-width: 720px) {
+        #app {
+          width: min(100%, calc(100% - 12px));
+          margin: 6px auto;
+        }
+
+        .masthead,
+        .main-shell,
+        .frontpage-card,
+        .briefing-card,
+        .article-card,
+        .score-card,
+        .sidebar-card,
+        .results-card {
+          padding-left: 16px;
+          padding-right: 16px;
+        }
+
+        .masthead-topline,
+        .paper-dateline,
+        .nameplate {
+          grid-template-columns: 1fr;
+          text-align: center;
+        }
+
+        .masthead-topline,
+        .paper-dateline {
+          display: grid;
+        }
+
+        .paper-dateline span,
+        .paper-dateline span:last-child,
+        .paper-dateline span:nth-child(2) {
+          text-align: center;
+        }
+
+        .meta-bar,
+        .score-grid,
+        .results-grid,
+        .verdict-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .verdict-history {
+          grid-template-columns: repeat(3, minmax(0, 1fr));
+        }
+
+        .headline,
+        .article-headline,
+        .results-rank {
+          max-width: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app">
+      <header class="masthead">
+        <div class="masthead-topline">
+          <span id="edition-line">Morning Edition</span>
+          <span>Human or Not Press Bureau</span>
+          <span id="today-line">Archive Desk</span>
+        </div>
+        <div class="nameplate">
+          <div class="nameplate-rule"></div>
+          <div class="paper-name">Human or Not</div>
+          <div class="nameplate-rule"></div>
+        </div>
+        <div class="paper-subtitle">
+          A special newspaper game about spotting manufactured culture
+        </div>
+        <div class="paper-dateline">
+          <span id="volume-line">Vol. 1, No. 15</span>
+          <span>Special Examination: Pre-AI Truth vs Machine Imitation</span>
+          <span id="exhibit-count-line">15 exhibits</span>
+        </div>
+      </header>
+
+      <main class="main-shell">
+        <section id="intro-screen" class="screen active">
+          <div class="intro-layout">
+            <article class="frontpage-card">
+              <div class="kicker">Front Page Investigation</div>
+              <h1 class="headline">Can You Read the Difference?</h1>
+              <p class="subdeck">
+                Some exhibits were made by real people before generative AI
+                rewired our instincts. Others are modern fabrications crafted to
+                sound or look authentic. Your job is to file the right verdict.
+              </p>
+              <div class="frontpage-columns">
+                <p class="dropcap">
+                  Every round presents a single exhibit from the archive: a
+                  passage from literature, scholarship, public documents, or an
+                  image circulating as evidence. The challenge is not whether it
+                  is old, polished, or beautiful. The challenge is whether it
+                  was made by human intention or generated by a model imitating
+                  that intention.
+                </p>
+                <p>
+                  The visual tone is deliberately editorial: worn paper, bureau
+                  notes, clipped metadata, and a front-page rhythm that makes
+                  each guess feel like a filed report. Strong instincts help,
+                  but so does noticing texture, specificity, weirdness,
+                  over-neat language, and the kind of detail machines often
+                  smooth away.
+                </p>
+              </div>
+            </article>
+
+            <aside class="briefing-card">
+              <div class="stamp">Confidential Archive</div>
+              <h2 class="briefing-title">Case Brief</h2>
+              <p class="briefing-copy">
+                You will review 15 exhibits. Some are genuine pre-AI texts or
+                human-made images. Some are AI-made imitations designed to feel
+                plausible.
+              </p>
+              <div class="facts-list">
+                <div class="fact-row">
+                  <div class="fact-label">Goal</div>
+                  <div class="fact-value">
+                    Decide whether each exhibit is <strong>AI-generated</strong>
+                    or <strong>Human-made</strong>.
+                  </div>
+                </div>
+                <div class="fact-row">
+                  <div class="fact-label">Format</div>
+                  <div class="fact-value">
+                    Mixed media: literary excerpts, research-style prose,
+                    historical language, and archived images.
+                  </div>
+                </div>
+                <div class="fact-row">
+                  <div class="fact-label">Scoring</div>
+                  <div class="fact-value">
+                    10 points per correct verdict. Final rank is awarded like a
+                    newsroom promotion.
+                  </div>
+                </div>
+                <div class="fact-row">
+                  <div class="fact-label">Tip</div>
+                  <div class="fact-value">
+                    Use the keyboard: press <strong>A</strong> for AI,
+                    <strong>H</strong> for Human, and <strong>Enter</strong> for
+                    the next exhibit.
+                  </div>
+                </div>
+              </div>
+              <button class="primary-btn" id="start-btn" type="button">
+                Open the case file
+              </button>
+            </aside>
+          </div>
+        </section>
+
+        <section id="game-screen" class="screen" aria-live="polite">
+          <div class="game-layout">
+            <article class="article-card">
+              <div id="article-shell"></div>
+              <div id="feedback-zone"></div>
+            </article>
+
+            <aside class="sidebar-stack">
+              <section class="score-card">
+                <div class="kicker">News Desk</div>
+                <h2 class="section-title">Current Filing</h2>
+                <div class="score-grid">
+                  <div class="score-box">
+                    <div class="score-label">Exhibit</div>
+                    <div class="score-value" id="round-num">1</div>
+                  </div>
+                  <div class="score-box">
+                    <div class="score-label">Correct</div>
+                    <div class="score-value" id="correct-val">0</div>
+                  </div>
+                  <div class="score-box">
+                    <div class="score-label">Score</div>
+                    <div class="score-value" id="score-val">0</div>
+                  </div>
+                </div>
+                <div class="progress-rail" aria-hidden="true">
+                  <div class="progress-bar" id="progress-bar"></div>
+                </div>
+                <p class="sidebar-copy" style="margin-top: 12px">
+                  File your call carefully. Each answer reveals the source and a
+                  quick editor's note on what gave it away.
+                </p>
+              </section>
+
+              <section class="sidebar-card">
+                <div class="kicker">Field Guide</div>
+                <h2 class="section-title">What to Watch</h2>
+                <div class="sidebar-list">
+                  <div class="sidebar-item">
+                    <span>Specificity</span>
+                    <strong>Humans leave odd details.</strong>
+                  </div>
+                  <div class="sidebar-item">
+                    <span>Texture</span>
+                    <strong>AI often over-smooths tone.</strong>
+                  </div>
+                  <div class="sidebar-item">
+                    <span>Structure</span>
+                    <strong>Machine prose can feel too even.</strong>
+                  </div>
+                  <div class="sidebar-item">
+                    <span>Images</span>
+                    <strong>Look for lighting, edges, anatomy.</strong>
+                  </div>
+                </div>
+              </section>
+
+              <section class="sidebar-card">
+                <div class="kicker">Controls</div>
+                <h2 class="section-title">Desk Shortcuts</h2>
+                <div class="sidebar-list">
+                  <div class="sidebar-item">
+                    <span><strong>A</strong> key</span>
+                    <span>Submit AI verdict</span>
+                  </div>
+                  <div class="sidebar-item">
+                    <span><strong>H</strong> key</span>
+                    <span>Submit Human verdict</span>
+                  </div>
+                  <div class="sidebar-item">
+                    <span><strong>Enter</strong></span>
+                    <span>Continue after feedback</span>
+                  </div>
+                </div>
+              </section>
+            </aside>
+          </div>
+        </section>
+
+        <section id="results-screen" class="screen">
+          <div class="results-layout">
+            <article class="results-card">
+              <div class="kicker">Final Edition</div>
+              <div class="results-banner">
+                <div>
+                  <h2 class="results-rank" id="rank-headline"></h2>
+                  <p class="results-copy" id="rank-deck"></p>
+                </div>
+                <div class="results-score" id="final-score-line"></div>
+              </div>
+              <div class="results-grid" id="results-grid"></div>
+              <div class="verdict-history" id="history-grid"></div>
+            </article>
+
+            <aside class="results-sidebar">
+              <section class="sidebar-card">
+                <div class="kicker">Editor's Note</div>
+                <h2 class="section-title">How You Read</h2>
+                <p class="sidebar-copy" id="editor-note"></p>
+              </section>
+
+              <section class="sidebar-card">
+                <div class="kicker">Reissue</div>
+                <h2 class="section-title">Run Another Edition</h2>
+                <p class="sidebar-copy">
+                  The archive reshuffles every time, so the pacing and order of
+                  your investigation stays fresh.
+                </p>
+                <button class="primary-btn" id="restart-btn" type="button">
+                  Print a new edition
+                </button>
+              </section>
+            </aside>
+          </div>
+        </section>
+      </main>
+    </div>
+    <p class="screen-reader" id="live-region" aria-live="polite"></p>
+    <script>
+      const TOTAL_ROUNDS = 15;
+      const REAL_TEXTS = [
+        {
+          text: "It was the best of times, it was the worst of times, it was the age of wisdom, it was the age of foolishness, it was the epoch of belief, it was the epoch of incredulity.",
+          source: "A Tale of Two Cities, Charles Dickens, 1859",
+          hint: "The balance, cadence, and controlled oppositions are classic Dickens rather than machine-made mood writing.",
+          kicker: "Literary fiction",
+          headline: "Victorian prose enters the bureau",
+          year: "1859",
+          deskNote: "Dense rhetoric with unmistakable authorial rhythm.",
+        },
+        {
+          text: "The sky above the port was the color of television, tuned to a dead channel.",
+          source: "Neuromancer, William Gibson, 1984",
+          hint: "That metaphor is too strange, compact, and era-specific to feel like generic synthetic cyberpunk.",
+          kicker: "Speculative fiction",
+          headline: "A cyberpunk opening line is filed as evidence",
+          year: "1984",
+          deskNote: "Memorable imagery with no wasted explanation.",
+        },
+        {
+          text: "It is a truth universally acknowledged, that a single man in possession of a good fortune, must be in want of a wife.",
+          source: "Pride and Prejudice, Jane Austen, 1813",
+          hint: "Austen's social irony arrives immediately; AI imitations usually flatten that sharpness into pastiche.",
+          kicker: "Regency fiction",
+          headline: "Society prose examined by the copy desk",
+          year: "1813",
+          deskNote: "Human irony with social bite.",
+        },
+        {
+          text: "Two roads diverged in a yellow wood, And sorry I could not travel both And be one traveler, long I stood.",
+          source: "The Road Not Taken, Robert Frost, 1916",
+          hint: "The line feels deceptively simple, but the meter and voice are exact rather than approximate.",
+          kicker: "American poetry",
+          headline: "Verse with a famous fork reaches the press room",
+          year: "1916",
+          deskNote: "Plain diction with precise musical structure.",
+        },
+        {
+          text: "We hold these truths to be self-evident, that all men are created equal, that they are endowed by their Creator with certain unalienable Rights.",
+          source: "Declaration of Independence, 1776",
+          hint: "The legal-rhetorical cadence and historical phrasing come from a real political tradition, not contemporary model smoothing.",
+          kicker: "Historical document",
+          headline: "Founding language enters the record",
+          year: "1776",
+          deskNote: "Formal argument shaped for public memory.",
+        },
+        {
+          text: "Ships at a distance have every man's wish on board. For some they come in with the tide. For others they sail forever on the horizon.",
+          source: "Their Eyes Were Watching God, Zora Neale Hurston, 1937",
+          hint: "The metaphor expands with unusual confidence and clarity rather than sounding statistically well-formed.",
+          kicker: "American novel",
+          headline: "Dreams and distance arrive from the archive",
+          year: "1937",
+          deskNote: "Voice and metaphor move with authority.",
+        },
+        {
+          text: "I am invisible, understand, simply because people refuse to see me.",
+          source: "Invisible Man, Ralph Ellison, 1952",
+          hint: "The compression and conceptual force here feel authored, not blended from a style prompt.",
+          kicker: "Modern literature",
+          headline: "Identity statement logged by editors",
+          year: "1952",
+          deskNote: "Direct language carrying layered meaning.",
+        },
+        {
+          text: "The results indicate that bilingual participants demonstrated enhanced inhibitory control relative to monolingual peers, after adjustment for age, education, and baseline processing speed.",
+          source: "Cognitive psychology article, early 2000s journal prose",
+          hint: "The sentence is dry, narrow, and domain-specific in the way real research summaries often are.",
+          kicker: "Research writing",
+          headline: "A real abstract sentence enters peer review",
+          year: "2003",
+          deskNote: "Specific controls and restrained claims.",
+        },
+      ];
+
+      const AI_TEXTS = [
+        {
+          text: "Elara paused before the manor as the fog arranged itself around the iron gate, and the evening seemed to hold its breath in a hush of ancestral memory. Every stone appeared to remember a sorrow, every darkened window a secret not yet spoken.",
+          source: "AI-generated imitation of Victorian fiction",
+          hint: "The mood is thick, but the details are interchangeable and too uniformly atmospheric.",
+          kicker: "Literary imitation",
+          headline: "A gothic paragraph raises suspicion at the desk",
+          year: "Synthetic",
+          deskNote: "Decorative texture without enough lived specificity.",
+        },
+        {
+          text: "Findings from the present investigation suggest a meaningful and statistically significant relationship between abyssal migration regularity and nutrient-responsive orientation behavior in the observed fish population (p = 0.031). These outcomes may provide a useful framework for future ecological modeling.",
+          source: "AI-generated imitation of research prose",
+          hint: "It sounds plausible, but phrases like 'useful framework' and 'meaningful relationship' stay generic rather than concrete.",
+          kicker: "Research imitation",
+          headline: "A marine abstract lands under suspicion",
+          year: "Synthetic",
+          deskNote: "Polished academic shape, low informational density.",
+        },
+        {
+          text: "At dusk the station gathered its shadows neatly, as though evening were a clerk with patient hands. The rails kept shining into the distance with the same practiced loneliness that all departures seem to borrow.",
+          source: "AI-generated imitation of modernist poetry",
+          hint: "The imagery is smooth and respectable, but it never surprises with a truly singular turn.",
+          kicker: "Poetic imitation",
+          headline: "A graceful station poem feels almost too graceful",
+          year: "Synthetic",
+          deskNote: "Strong mood, weaker idiosyncrasy.",
+        },
+        {
+          text: "Liberty may be considered the proper atmosphere of civil society, for where men are permitted the full exercise of reason, they discover both the dignity of self-command and the common benefit of orderly cooperation.",
+          source: "AI-generated imitation of Enlightenment prose",
+          hint: "The sentence copies the register but lacks the argumentative teeth and historical friction of real philosophy.",
+          kicker: "Philosophical imitation",
+          headline: "An essay fragment comes in sounding too polished",
+          year: "Synthetic",
+          deskNote: "Correct syntax, softened conviction.",
+        },
+        {
+          text: "The orchard behind the school held a silence so complete that Mara felt the afternoon had been preserved there for years, jarred and labeled by some invisible curator of memory.",
+          source: "AI-generated literary prose",
+          hint: "The metaphor is pretty but broadly applicable, a common sign of model-written literary language.",
+          kicker: "Literary imitation",
+          headline: "Schoolyard nostalgia is flagged by copy editors",
+          year: "Synthetic",
+          deskNote: "Stylish sentence, generic emotional architecture.",
+        },
+        {
+          text: "Taken together, these observations highlight the potentially transformative role of early multisensory enrichment in promoting resilient developmental outcomes across diverse educational contexts.",
+          source: "AI-generated academic summary",
+          hint: "This is all conclusion and no evidence, the kind of polished vagueness AI leans on.",
+          kicker: "Research imitation",
+          headline: "A sweeping conclusion arrives with no hard edges",
+          year: "Synthetic",
+          deskNote: "Conclusion language outruns the data.",
+        },
+        {
+          text: "He crossed the midnight avenue as though the city had drafted him into one more anonymous errand, its windows lit like patient equations waiting to be solved by someone less tired than he was.",
+          source: "AI-generated noir-leaning prose",
+          hint: "The similes are coherent but feel assembled from familiar literary ingredients.",
+          kicker: "Urban fiction imitation",
+          headline: "Noir atmosphere enters evidence in tidy condition",
+          year: "Synthetic",
+          deskNote: "Convincing surface texture, borrowed emotional grammar.",
+        },
+        {
+          text: "History does not vanish when institutions decay; it becomes ambient, persisting in habits, rooms, and inherited reflexes that outlive the arguments once used to justify them.",
+          source: "AI-generated essayistic prose",
+          hint: "This sounds smart at first pass, but it remains aphoristic and frictionless rather than deeply argued.",
+          kicker: "Essay imitation",
+          headline: "A sharp-looking sentence proves slippery on inspection",
+          year: "Synthetic",
+          deskNote: "Insightful tone without a real argumentative trail.",
+        },
+      ];
+      const AI_IMAGES = [
+        {
+          url: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8e/AI_art_3_young_ladies_from_South_Asia_smiling_in_conversation.png/640px-AI_art_3_young_ladies_from_South_Asia_smiling_in_conversation.png",
+          source: "Wikimedia Commons image openly labeled AI-generated",
+          hint: "The faces are smooth in the same way, the lighting is strangely consistent, and the image feels too evenly perfected.",
+          kicker: "Image exhibit",
+          headline: "Portrait scene enters the authenticity desk",
+          year: "Synthetic",
+          deskNote: "Symmetry and finish feel machine-composed.",
+        },
+        {
+          url: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/69/AI_art_Black_cut_out_of_a_large_bird_with_outstretched_wings.png/640px-AI_art_Black_cut_out_of_a_large_bird_with_outstretched_wings.png",
+          source: "Wikimedia Commons image openly labeled AI-generated",
+          hint: "The silhouette is clean, but the compositional crispness feels algorithmic rather than photographic or hand-made.",
+          kicker: "Image exhibit",
+          headline: "An avian silhouette arrives under suspicion",
+          year: "Synthetic",
+          deskNote: "Too frictionless at the edges.",
+        },
+        {
+          url: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d2/AI_art_Fresco_of_3_young_ladies_from_south-west_Asia.png/640px-AI_art_Fresco_of_3_young_ladies_from_south-west_Asia.png",
+          source: "Wikimedia Commons image openly labeled AI-generated",
+          hint: "It imitates age and medium, but facial rendering and texture repetition give the game away.",
+          kicker: "Image exhibit",
+          headline: "A faux fresco is clipped for review",
+          year: "Synthetic",
+          deskNote: "Historical styling without real material wear.",
+        },
+        {
+          url: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4d/AI_art_portrait_of_a_bearded_man.png/640px-AI_art_portrait_of_a_bearded_man.png",
+          source: "Wikimedia Commons image openly labeled AI-generated",
+          hint: "Hair, pores, and brush texture all land in a suspiciously unified synthetic register.",
+          kicker: "Image exhibit",
+          headline: "A painted-looking portrait lands on the copy spike",
+          year: "Synthetic",
+          deskNote: "Texture reads like simulation, not medium.",
+        },
+      ];
+
+      const REAL_IMAGES = [
+        {
+          url: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/Camponotus_flavomarginatus_ant.jpg/640px-Camponotus_flavomarginatus_ant.jpg",
+          source: "Wikimedia Commons macro photograph of an ant",
+          hint: "The depth of field, tiny imperfections, and specific natural detail feel captured rather than invented.",
+          kicker: "Image exhibit",
+          headline: "Macro insect photograph is logged as evidence",
+          year: "Archive",
+          deskNote: "Natural complexity resists synthetic neatness.",
+        },
+        {
+          url: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Biologia_Centrali-Americana_Insecta_Lepidoptera-Rhopalocera_pl100.jpg/640px-Biologia_Centrali-Americana_Insecta_Lepidoptera-Rhopalocera_pl100.jpg",
+          source: "Public-domain nineteenth-century scientific illustration",
+          hint: "The plate shows human drafting, print artifacts, and material age rather than generated texture.",
+          kicker: "Image exhibit",
+          headline: "Antique natural-history plate enters circulation",
+          year: "Archive",
+          deskNote: "Human illustration leaves real process marks.",
+        },
+        {
+          url: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/47/PNG_transparency_demonstration_1.png/640px-PNG_transparency_demonstration_1.png",
+          source: "Wikimedia Commons human-made demonstration graphic",
+          hint: "It is digitally made, but still clearly designed by people rather than generated by AI.",
+          kicker: "Image exhibit",
+          headline: "Design graphic is examined for category error",
+          year: "Archive",
+          deskNote: "Human-made does not have to mean photographic.",
+        },
+        {
+          url: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/24/Blue_Flower_by_Albrecht_D%C3%BCrer.jpg/640px-Blue_Flower_by_Albrecht_D%C3%BCrer.jpg",
+          source: "Public-domain historical artwork by Albrecht Durer",
+          hint: "The imperfections of the medium and authored choices feel grounded in real craft.",
+          kicker: "Image exhibit",
+          headline: "Historical flower study reaches the art desk",
+          year: "Archive",
+          deskNote: "Material process remains visible.",
+        },
+      ];
+
+      const state = {
+        rounds: [],
+        currentRound: 0,
+        score: 0,
+        correctCount: 0,
+        waitingForNext: false,
+        history: [],
+      };
+
+      const elements = {
+        editionLine: document.getElementById("edition-line"),
+        todayLine: document.getElementById("today-line"),
+        volumeLine: document.getElementById("volume-line"),
+        exhibitCountLine: document.getElementById("exhibit-count-line"),
+        startBtn: document.getElementById("start-btn"),
+        restartBtn: document.getElementById("restart-btn"),
+        articleShell: document.getElementById("article-shell"),
+        feedbackZone: document.getElementById("feedback-zone"),
+        roundNum: document.getElementById("round-num"),
+        scoreVal: document.getElementById("score-val"),
+        correctVal: document.getElementById("correct-val"),
+        progressBar: document.getElementById("progress-bar"),
+        finalScoreLine: document.getElementById("final-score-line"),
+        rankHeadline: document.getElementById("rank-headline"),
+        rankDeck: document.getElementById("rank-deck"),
+        resultsGrid: document.getElementById("results-grid"),
+        historyGrid: document.getElementById("history-grid"),
+        editorNote: document.getElementById("editor-note"),
+        liveRegion: document.getElementById("live-region"),
+      };
+
+      function shuffle(items) {
+        const clone = [...items];
+        for (let i = clone.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [clone[i], clone[j]] = [clone[j], clone[i]];
+        }
+        return clone;
+      }
+
+      function sample(items, count) {
+        return shuffle(items).slice(0, count);
+      }
+
+      function showScreen(id) {
+        document
+          .querySelectorAll(".screen")
+          .forEach((screen) => screen.classList.remove("active"));
+        document.getElementById(id).classList.add("active");
+      }
+
+      function makeDateline() {
+        const now = new Date();
+        elements.todayLine.textContent = now.toLocaleDateString("en-US", {
+          weekday: "long",
+          month: "long",
+          day: "numeric",
+          year: "numeric",
+        });
+        elements.editionLine.textContent =
+          now.getHours() < 12 ? "Morning Edition" : "Late Edition";
+        elements.volumeLine.textContent = "Vol. 1, No. 15";
+        elements.exhibitCountLine.textContent = TOTAL_ROUNDS + " exhibits";
+      }
+
+      function buildRounds() {
+        const rounds = [
+          ...sample(REAL_TEXTS, 4).map((item) => ({
+            ...item,
+            type: "text",
+            isAI: false,
+          })),
+          ...sample(AI_TEXTS, 5).map((item) => ({
+            ...item,
+            type: "text",
+            isAI: true,
+          })),
+          ...sample(REAL_IMAGES, 3).map((item) => ({
+            ...item,
+            type: "image",
+            isAI: false,
+          })),
+          ...sample(AI_IMAGES, 3).map((item) => ({
+            ...item,
+            type: "image",
+            isAI: true,
+          })),
+        ];
+
+        state.rounds = shuffle(rounds);
+      }
+
+      function announce(message) {
+        elements.liveRegion.textContent = message;
+      }
+
+      function renderLoadingState() {
+        elements.articleShell.innerHTML = `
+          <div class="loading-panel">
+            <div>
+              <div class="spinner" aria-hidden="true"></div>
+              <div class="loading-copy">Pulling exhibits from the archive</div>
+            </div>
+          </div>
+        `;
+        elements.feedbackZone.innerHTML = "";
+      }
+      function updateScoreboard() {
+        elements.roundNum.textContent = String(state.currentRound + 1);
+        elements.scoreVal.textContent = String(state.score);
+        elements.correctVal.textContent = String(state.correctCount);
+        elements.progressBar.style.width =
+          (state.currentRound / TOTAL_ROUNDS) * 100 + "%";
+      }
+
+      function buildEvidenceHtml(round) {
+        if (round.type === "text") {
+          return `
+            <div class="evidence-box">
+              <div class="evidence-tag">Text exhibit</div>
+              <div class="evidence-text">${round.text}</div>
+            </div>
+          `;
+        }
+
+        return `
+          <div class="evidence-box">
+            <div class="evidence-tag">Image exhibit</div>
+            <div class="evidence-image-frame">
+              <img
+                class="actual-img"
+                src="${round.url}"
+                alt="Round evidence"
+                onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+              />
+              <div class="img-placeholder">
+                This archive image could not be loaded.<br />The round still counts, but you may want to refresh.
+              </div>
+            </div>
+            <div class="caption">
+              Exhibit ${state.currentRound + 1} of ${TOTAL_ROUNDS}. Public archive source under review.
+            </div>
+          </div>
+        `;
+      }
+
+      function renderRound() {
+        state.waitingForNext = false;
+        const round = state.rounds[state.currentRound];
+        updateScoreboard();
+        elements.feedbackZone.innerHTML = "";
+
+        elements.articleShell.innerHTML = `
+          <div class="kicker">${round.kicker}</div>
+          <div class="meta-bar">
+            <div class="meta-item">
+              <span class="meta-label">Desk</span>
+              <span class="meta-value">Authenticity bureau</span>
+            </div>
+            <div class="meta-item">
+              <span class="meta-label">Exhibit</span>
+              <span class="meta-value">${state.currentRound + 1} / ${TOTAL_ROUNDS}</span>
+            </div>
+            <div class="meta-item">
+              <span class="meta-label">Era</span>
+              <span class="meta-value">${round.year}</span>
+            </div>
+            <div class="meta-item">
+              <span class="meta-label">Lead</span>
+              <span class="meta-value">${round.type === "text" ? "Language analysis" : "Visual analysis"}</span>
+            </div>
+          </div>
+          <h2 class="article-headline">${round.headline}</h2>
+          <div class="article-byline">
+            <span>Filed by the editorial desk</span>
+            <span>${round.deskNote}</span>
+          </div>
+          <p class="article-lede">
+            Study the exhibit closely, then submit your newsroom verdict. Is this a human-made artifact from the archive, or a convincing modern fabrication?
+          </p>
+          ${buildEvidenceHtml(round)}
+          <div class="verdict-panel" id="verdict-panel">
+            <div class="verdict-label">File your verdict</div>
+            <div class="verdict-grid">
+              <button class="verdict-btn ai-btn" type="button" data-verdict="ai">
+                <div class="verdict-heading">
+                  <span class="verdict-title">AI-generated</span>
+                  <span class="verdict-key">A</span>
+                </div>
+                <div class="verdict-copy">
+                  The piece feels machine-made: over-smoothed, imitative, or synthetically composed.
+                </div>
+              </button>
+              <button class="verdict-btn real-btn" type="button" data-verdict="human">
+                <div class="verdict-heading">
+                  <span class="verdict-title">Human-made</span>
+                  <span class="verdict-key">H</span>
+                </div>
+                <div class="verdict-copy">
+                  The exhibit reads as real authorship, real craft, or non-AI human production.
+                </div>
+              </button>
+            </div>
+          </div>
+        `;
+
+        document
+          .querySelector('[data-verdict="ai"]')
+          .addEventListener("click", () => submitVerdict(true));
+        document
+          .querySelector('[data-verdict="human"]')
+          .addEventListener("click", () => submitVerdict(false));
+
+        announce("Exhibit " + (state.currentRound + 1) + " loaded.");
+      }
+
+      function startGame() {
+        buildRounds();
+        state.currentRound = 0;
+        state.score = 0;
+        state.correctCount = 0;
+        state.waitingForNext = false;
+        state.history = [];
+        showScreen("game-screen");
+        renderLoadingState();
+
+        window.setTimeout(() => {
+          renderRound();
+        }, 280);
+      }
+
+      function submitVerdict(guessedAI) {
+        if (state.waitingForNext) {
+          return;
+        }
+
+        state.waitingForNext = true;
+        const round = state.rounds[state.currentRound];
+        const correct = guessedAI === round.isAI;
+
+        if (correct) {
+          state.score += 10;
+          state.correctCount += 1;
+        }
+
+        state.history.push({
+          type: round.type,
+          correct,
+          isAI: round.isAI,
+        });
+
+        updateScoreboard();
+
+        elements.feedbackZone.innerHTML = `
+          <div class="feedback-box ${correct ? "correct" : "wrong"}">
+            <div class="feedback-title">${correct ? "Verdict confirmed" : "Incorrect filing"}</div>
+            <div class="feedback-source">
+              This exhibit was <strong>${round.isAI ? "AI-generated" : "human-made"}</strong>.
+              Source: ${round.source}
+            </div>
+            <div class="feedback-hint">${round.hint}</div>
+            <div class="next-row">
+              <button class="secondary-btn" id="next-btn" type="button">
+                ${state.currentRound === TOTAL_ROUNDS - 1 ? "See final edition" : "Next exhibit"}
+              </button>
+            </div>
+          </div>
+        `;
+
+        document.getElementById("next-btn").addEventListener("click", nextRound);
+        announce(
+          (correct ? "Correct. " : "Incorrect. ") +
+            "This exhibit was " +
+            (round.isAI ? "AI-generated." : "human-made.")
+        );
+      }
+      function nextRound() {
+        state.currentRound += 1;
+        if (state.currentRound >= TOTAL_ROUNDS) {
+          showResults();
+          return;
+        }
+        renderRound();
+      }
+
+      function getRank() {
+        const scoreBands = [
+          {
+            min: 0,
+            max: 4,
+            rank: "Copy Clerk",
+            deck: "The fakes pushed you around this edition, but your instincts are starting to form.",
+            note: "You reacted to surface polish more than deeper authorship cues. Slow down and look for specificity.",
+          },
+          {
+            min: 5,
+            max: 8,
+            rank: "Beat Reporter",
+            deck: "You spotted some tells, but the smoother fabrications still slipped through the city desk.",
+            note: "You are strongest when evidence contains concrete details. Broadly atmospheric prose still needs more skepticism.",
+          },
+          {
+            min: 9,
+            max: 11,
+            rank: "Staff Writer",
+            deck: "A solid edition. You can read tone well and usually catch synthetic overreach.",
+            note: "Your pattern recognition is good. The next leap is learning when polished confidence hides empty content.",
+          },
+          {
+            min: 12,
+            max: 14,
+            rank: "Investigations Editor",
+            deck: "Excellent work. You read past style and into structure, texture, and motive.",
+            note: "You are clearly noticing where machine output becomes too tidy or too generically eloquent.",
+          },
+          {
+            min: 15,
+            max: 15,
+            rank: "Publisher",
+            deck: "Perfect edition. You filed every verdict like someone who knows exactly what human strangeness looks like.",
+            note: "You caught every fabrication without confusing polish for authenticity. That's the whole game.",
+          },
+        ];
+
+        return scoreBands.find(
+          (band) =>
+            state.correctCount >= band.min && state.correctCount <= band.max
+        );
+      }
+
+      function buildResultStat(label, value, copy) {
+        return `
+          <div class="results-stat">
+            <div class="results-stat-label">${label}</div>
+            <div class="results-stat-value">${value}</div>
+            <div class="results-stat-copy">${copy}</div>
+          </div>
+        `;
+      }
+
+      function showResults() {
+        const rank = getRank();
+        const textRounds = state.history.filter((item) => item.type === "text");
+        const imageRounds = state.history.filter((item) => item.type === "image");
+        const aiRounds = state.history.filter((item) => item.isAI);
+        const humanRounds = state.history.filter((item) => !item.isAI);
+
+        const correctText = textRounds.filter((item) => item.correct).length;
+        const correctImage = imageRounds.filter((item) => item.correct).length;
+        const correctAI = aiRounds.filter((item) => item.correct).length;
+        const correctHuman = humanRounds.filter((item) => item.correct).length;
+
+        elements.rankHeadline.textContent = rank.rank;
+        elements.rankDeck.textContent = rank.deck;
+        elements.finalScoreLine.textContent =
+          state.correctCount + " / " + TOTAL_ROUNDS + " correct - " + state.score + " points";
+        elements.editorNote.textContent = rank.note;
+
+        elements.resultsGrid.innerHTML =
+          buildResultStat(
+            "Text exhibits",
+            correctText + " / " + textRounds.length,
+            "How well you read voice, rhetoric, and suspicious smoothness."
+          ) +
+          buildResultStat(
+            "Image exhibits",
+            correctImage + " / " + imageRounds.length,
+            "How well you judged composition, texture, and visual tells."
+          ) +
+          buildResultStat(
+            "AI spotted",
+            correctAI + " / " + aiRounds.length,
+            "Your ability to identify generated content when the artifact was synthetic."
+          ) +
+          buildResultStat(
+            "Humans cleared",
+            correctHuman + " / " + humanRounds.length,
+            "Your ability to avoid falsely accusing real human-made work."
+          );
+
+        elements.historyGrid.innerHTML = state.history
+          .map(
+            (item, index) => `
+              <div class="history-chip ${item.correct ? "correct" : "wrong"}">
+                ${index + 1}. ${item.correct ? "Filed" : "Missed"}
+              </div>
+            `
+          )
+          .join("");
+
+        showScreen("results-screen");
+        announce("Final edition ready. You scored " + state.correctCount + " out of " + TOTAL_ROUNDS + ".");
+      }
+
+      document.addEventListener("keydown", (event) => {
+        if (!document.getElementById("game-screen").classList.contains("active")) {
+          return;
+        }
+
+        if (!state.waitingForNext) {
+          if (event.key === "a" || event.key === "A") {
+            submitVerdict(true);
+          }
+          if (event.key === "h" || event.key === "H") {
+            submitVerdict(false);
+          }
+        } else if (event.key === "Enter") {
+          nextRound();
+        }
+      });
+
+      elements.startBtn.addEventListener("click", startGame);
+      elements.restartBtn.addEventListener("click", startGame);
+
+      makeDateline();
+    </script>
+  </body>
+</html>
