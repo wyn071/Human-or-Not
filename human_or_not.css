@@ -191,10 +191,21 @@ body::before {
   padding: 22px;
 }
 
+.intro-frontpage {
+  display: grid;
+  gap: 18px;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.2), transparent 18%),
+    rgba(255, 249, 239, 0.55);
+  border: 1px solid rgba(40, 29, 12, 0.16);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.45);
+  padding: 18px;
+}
+
 .intro-layout {
   display: grid;
-  grid-template-columns: 1.4fr 0.9fr;
-  gap: 24px;
+  grid-template-columns: 1.7fr 0.78fr;
+  gap: 16px;
   align-items: stretch;
 }
 
@@ -203,7 +214,8 @@ body::before {
 .article-card,
 .score-card,
 .sidebar-card,
-.results-card {
+.results-card,
+.selection-card {
   background: rgba(255, 251, 242, 0.86);
   border: 1px solid var(--line);
   box-shadow: var(--shadow-sm);
@@ -211,13 +223,17 @@ body::before {
 }
 
 .frontpage-card {
-  padding: 24px;
+  padding: 30px 30px 32px;
   overflow: hidden;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.94), rgba(247, 240, 223, 0.98)),
+    rgba(255, 251, 242, 0.9);
 }
 
 .frontpage-card::before,
 .article-card::before,
-.results-card::before {
+.results-card::before,
+.selection-card::before {
   content: "";
   position: absolute;
   top: 0;
@@ -234,41 +250,62 @@ body::before {
   opacity: 0.6;
 }
 
-.kicker {
+.frontpage-card::after {
+  content: "SPECIAL REPORT";
+  position: absolute;
+  top: 28px;
+  right: -38px;
+  padding: 8px 44px;
+  background: rgba(24, 20, 17, 0.94);
+  color: #f7f0de;
   font-family: var(--font-sans);
   font-size: 10px;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.22em;
+  letter-spacing: 0.18em;
+  transform: rotate(90deg);
+}
+
+.kicker {
+  font-family: var(--font-sans);
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.24em;
   color: var(--accent);
-  margin-bottom: 12px;
+  margin-bottom: 14px;
 }
 
 .headline {
-  font-size: clamp(2rem, 4vw, 3.6rem);
-  line-height: 0.94;
+  font-size: clamp(3rem, 6vw, 5.25rem);
+  line-height: 0.84;
   text-transform: uppercase;
   font-weight: 700;
-  letter-spacing: 0.02em;
-  max-width: 10ch;
+  letter-spacing: 0;
+  max-width: 7ch;
+  margin-right: 54px;
 }
 
 .subdeck {
-  margin-top: 18px;
-  font-size: 16px;
-  line-height: 1.75;
-  color: var(--ink-soft);
-  max-width: 58ch;
+  margin-top: 20px;
+  padding-top: 18px;
+  border-top: 1px solid var(--line-strong);
+  font-size: 19px;
+  line-height: 1.85;
+  color: #352d26;
+  max-width: 40ch;
+  font-weight: 500;
 }
 
 .frontpage-columns {
-  margin-top: 20px;
+  margin-top: 24px;
   padding-top: 18px;
-  border-top: 1px solid var(--line);
+  border-top: 2px solid rgba(24, 20, 17, 0.2);
   column-count: 2;
-  column-gap: 22px;
+  column-gap: 26px;
   font-size: 15px;
-  line-height: 1.75;
+  line-height: 1.92;
+  color: #2c241d;
 }
 
 .frontpage-columns p + p {
@@ -277,17 +314,20 @@ body::before {
 
 .dropcap::first-letter {
   float: left;
-  font-size: 3.5rem;
-  line-height: 0.8;
-  padding-right: 8px;
-  padding-top: 6px;
+  font-size: 4.3rem;
+  line-height: 0.72;
+  padding-right: 10px;
+  padding-top: 8px;
 }
 
 .briefing-card {
-  padding: 22px;
+  padding: 24px 22px;
   display: flex;
   flex-direction: column;
-  gap: 18px;
+  gap: 16px;
+  background:
+    linear-gradient(180deg, rgba(252, 248, 238, 0.98), rgba(239, 231, 212, 0.95)),
+    rgba(255, 251, 242, 0.9);
 }
 
 .stamp {
@@ -304,10 +344,12 @@ body::before {
 
 .briefing-title,
 .section-title {
-  font-size: 22px;
-  line-height: 1.1;
+  font-size: 26px;
+  line-height: 1;
   text-transform: uppercase;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.03em;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--line);
 }
 
 .briefing-copy,
@@ -316,12 +358,73 @@ body::before {
   color: var(--ink-soft);
   font-family: var(--font-sans);
   font-size: 14px;
-  line-height: 1.7;
+  line-height: 1.8;
 }
 
 .facts-list {
   display: grid;
   gap: 12px;
+}
+
+.selection-shell {
+  display: grid;
+  gap: 14px;
+}
+
+.bold-selection-shell {
+  grid-template-columns: 0.9fr 1.4fr;
+  align-items: start;
+}
+
+.selection-card {
+  padding: 24px 26px 20px;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.82), rgba(241, 231, 205, 0.92)),
+    rgba(255, 251, 242, 0.88);
+}
+
+.intro-sidecard {
+  justify-content: space-between;
+}
+
+.selection-headline {
+  font-size: clamp(2.4rem, 4.5vw, 3.8rem);
+  text-transform: uppercase;
+  line-height: 0.86;
+  letter-spacing: 0.03em;
+  max-width: 10ch;
+}
+
+.selection-copy {
+  margin-top: 12px;
+  max-width: 44rem;
+  font-family: var(--font-sans);
+  font-size: 15px;
+  line-height: 1.8;
+  color: var(--ink-soft);
+}
+
+.selection-summary {
+  display: inline-flex;
+  margin-top: 18px;
+  padding: 10px 14px;
+  border: 1px solid rgba(24, 20, 17, 0.18);
+  background: rgba(24, 20, 17, 0.06);
+  font-family: var(--font-sans);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: var(--ink);
+}
+
+.selection-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+}
+
+.selection-briefing {
+  gap: 22px;
+  padding: 20px;
 }
 
 .edition-picker {
@@ -332,29 +435,31 @@ body::before {
 .edition-picker-label {
   font-family: var(--font-sans);
   text-transform: uppercase;
-  letter-spacing: 0.16em;
+  letter-spacing: 0.18em;
   font-size: 11px;
-  color: var(--ink-faint);
+  color: var(--ink);
+  font-weight: 700;
 }
 
 .edition-card-grid {
   display: grid;
-  gap: 12px;
+  gap: 10px;
 }
 
 .mode-card-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 12px;
+  gap: 10px;
 }
 
 .edition-card {
   position: relative;
   display: grid;
-  gap: 8px;
+  gap: 10px;
   text-align: left;
-  padding: 16px 14px 14px;
-  background: rgba(255, 255, 255, 0.42);
+  padding: 18px 16px 16px;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.82), rgba(243, 234, 214, 0.9));
   border: 1px solid var(--line);
   transition:
     transform 180ms ease,
@@ -364,14 +469,15 @@ body::before {
 }
 
 .edition-card:hover {
-  transform: translateY(-2px);
+  transform: translateY(-2px) rotate(-0.2deg);
   box-shadow: 0 10px 18px rgba(40, 29, 12, 0.1);
 }
 
 .edition-card.selected {
-  background: linear-gradient(180deg, rgba(255, 247, 228, 0.95), rgba(241, 229, 198, 0.92));
-  border-color: rgba(138, 47, 28, 0.48);
-  box-shadow: 0 12px 20px rgba(40, 29, 12, 0.12);
+  background:
+    linear-gradient(180deg, rgba(255, 249, 235, 1), rgba(241, 226, 192, 0.98));
+  border-color: rgba(24, 20, 17, 0.42);
+  box-shadow: 0 12px 20px rgba(40, 29, 12, 0.14);
 }
 
 .edition-card-badge {
@@ -393,8 +499,8 @@ body::before {
 }
 
 .edition-card-name {
-  font-size: 22px;
-  line-height: 1;
+  font-size: 24px;
+  line-height: 0.96;
   text-transform: uppercase;
   letter-spacing: 0.04em;
 }
@@ -402,7 +508,7 @@ body::before {
 .edition-card-copy {
   font-family: var(--font-sans);
   font-size: 13px;
-  line-height: 1.65;
+  line-height: 1.72;
   color: var(--ink-soft);
 }
 
@@ -419,7 +525,7 @@ body::before {
   grid-template-columns: 62px 1fr;
   gap: 12px;
   align-items: start;
-  padding-top: 10px;
+  padding-top: 11px;
   border-top: 1px dashed var(--line);
 }
 
@@ -462,12 +568,25 @@ body::before {
 }
 
 .primary-btn {
-  padding: 14px 18px;
+  padding: 15px 20px;
   font-family: var(--font-sans);
   font-size: 12px;
   text-transform: uppercase;
-  letter-spacing: 0.18em;
+  letter-spacing: 0.2em;
   font-weight: 700;
+  box-shadow: 0 10px 18px rgba(40, 29, 12, 0.08);
+}
+
+#start-btn {
+  width: 100%;
+  padding: 17px 20px;
+  background: linear-gradient(180deg, rgba(32, 26, 20, 0.96), rgba(73, 58, 32, 0.96));
+  color: #f7f0de;
+  border-color: rgba(24, 20, 17, 0.8);
+}
+
+#start-btn:hover {
+  background: linear-gradient(180deg, rgba(47, 38, 27, 0.98), rgba(88, 70, 39, 0.98));
 }
 .game-layout,
 .results-layout {
@@ -942,7 +1061,8 @@ body::before {
 @media (max-width: 980px) {
   .intro-layout,
   .game-layout,
-  .results-layout {
+  .results-layout,
+  .bold-selection-shell {
     grid-template-columns: 1fr;
   }
 
@@ -962,6 +1082,7 @@ body::before {
   .mode-card-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
+
 }
 
 @media (max-width: 720px) {
@@ -977,7 +1098,8 @@ body::before {
   .article-card,
   .score-card,
   .sidebar-card,
-  .results-card {
+  .results-card,
+  .selection-card {
     padding-left: 16px;
     padding-right: 16px;
   }
@@ -1018,4 +1140,5 @@ body::before {
   .results-rank {
     max-width: none;
   }
+
 }

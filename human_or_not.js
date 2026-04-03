@@ -309,6 +309,7 @@ const elements = {
   todayLine: document.getElementById("today-line"),
   volumeLine: document.getElementById("volume-line"),
   exhibitCountLine: document.getElementById("exhibit-count-line"),
+  selectionSummary: document.getElementById("selection-summary"),
   difficultyCards: document.querySelectorAll("[data-difficulty]"),
   modeCards: document.querySelectorAll("[data-mode]"),
   startBtn: document.getElementById("start-btn"),
@@ -360,7 +361,11 @@ function formatTime(seconds) {
   const safeSeconds = Math.max(0, seconds);
   const minutes = Math.floor(safeSeconds / 60);
   const remainingSeconds = safeSeconds % 60;
-  return String(minutes).padStart(2, "0") + ":" + String(remainingSeconds).padStart(2, "0");
+  return (
+    String(minutes).padStart(2, "0") +
+    ":" +
+    String(remainingSeconds).padStart(2, "0")
+  );
 }
 
 function clearTimer() {
@@ -401,12 +406,13 @@ function showScreen(id) {
 
 function makeDateline() {
   const now = new Date();
-  elements.todayLine.textContent = now.toLocaleDateString("en-US", {
+  const longDate = now.toLocaleDateString("en-US", {
     weekday: "long",
     month: "long",
     day: "numeric",
     year: "numeric",
   });
+  elements.todayLine.textContent = longDate;
   elements.editionLine.textContent =
     now.getHours() < 12 ? "Morning Edition" : "Late Edition";
   elements.volumeLine.textContent = "Vol. 1, No. 15";
@@ -714,7 +720,8 @@ function nextRound() {
 }
 
 function getRank() {
-  const percentage = getRoundTotal() > 0 ? state.correctCount / getRoundTotal() : 0;
+  const percentage =
+    getRoundTotal() > 0 ? state.correctCount / getRoundTotal() : 0;
   const scoreBands = [
     {
       min: 0,
@@ -847,6 +854,7 @@ function renderDifficultySelection() {
     card.classList.toggle("selected", isSelected);
     card.setAttribute("aria-pressed", String(isSelected));
   });
+  renderSelectionSummary();
 }
 
 function renderModeSelection() {
@@ -855,6 +863,19 @@ function renderModeSelection() {
     card.classList.toggle("selected", isSelected);
     card.setAttribute("aria-pressed", String(isSelected));
   });
+  renderSelectionSummary();
+}
+
+function renderSelectionSummary() {
+  if (!elements.selectionSummary) {
+    return;
+  }
+
+  elements.selectionSummary.textContent =
+    capitalize(state.difficulty) +
+    " Edition - " +
+    capitalize(state.mode) +
+    " Mode";
 }
 
 document.addEventListener("keydown", (event) => {
