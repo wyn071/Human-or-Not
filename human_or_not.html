@@ -25,7 +25,7 @@
         <div class="paper-dateline">
           <span id="volume-line">Vol. 1, No. 15</span>
           <span>Special Examination: Pre-AI Truth vs Machine Imitation</span>
-          <span id="exhibit-count-line">15 exhibits</span>
+          <span id="exhibit-count-line">Up to 15 exhibits</span>
         </div>
       </header>
 
@@ -64,9 +64,9 @@
               <div class="stamp">Confidential Archive</div>
               <h2 class="briefing-title">Case Brief</h2>
               <p class="briefing-copy">
-                You will review 15 exhibits. Some are genuine pre-AI texts or
-                human-made images. Some are AI-made imitations designed to feel
-                plausible.
+                You will review up to 15 exhibits. Some are genuine pre-AI
+                texts or human-made images. Some are AI-made imitations
+                designed to feel plausible.
               </p>
               <div class="facts-list">
                 <div class="fact-row">
@@ -100,6 +100,87 @@
                   </div>
                 </div>
               </div>
+              <div class="edition-picker">
+                <div class="edition-picker-label">Choose Your Edition</div>
+                <div class="edition-card-grid">
+                  <button
+                    class="edition-card"
+                    id="difficulty-easy"
+                    type="button"
+                    data-difficulty="easy"
+                  >
+                    <span class="edition-card-badge">Selected Edition</span>
+                    <div class="edition-card-name">Easy</div>
+                    <div class="edition-card-copy">
+                      Clear tells, obvious fakes, lighter warm-up.
+                    </div>
+                    <div class="edition-card-tag">
+                      Best for first-time players
+                    </div>
+                  </button>
+                  <button
+                    class="edition-card selected"
+                    id="difficulty-medium"
+                    type="button"
+                    data-difficulty="medium"
+                  >
+                    <span class="edition-card-badge">Selected Edition</span>
+                    <div class="edition-card-name">Medium</div>
+                    <div class="edition-card-copy">
+                      Balanced investigation, believable AI vs ordinary human
+                      work.
+                    </div>
+                    <div class="edition-card-tag">Standard assignment</div>
+                  </button>
+                  <button
+                    class="edition-card"
+                    id="difficulty-hard"
+                    type="button"
+                    data-difficulty="hard"
+                  >
+                    <span class="edition-card-badge">Selected Edition</span>
+                    <div class="edition-card-name">Hard</div>
+                    <div class="edition-card-copy">
+                      Ambiguous evidence, deceptive AI, suspiciously synthetic
+                      real content.
+                    </div>
+                    <div class="edition-card-tag">For sharp-eyed skeptics</div>
+                  </button>
+                </div>
+              </div>
+              <div class="edition-picker">
+                <div class="edition-picker-label">Choose Your Mode</div>
+                <div class="mode-card-grid">
+                  <button
+                    class="edition-card mode-card selected"
+                    id="mode-standard"
+                    type="button"
+                    data-mode="standard"
+                  >
+                    <span class="edition-card-badge">Selected Mode</span>
+                    <div class="edition-card-name">Standard</div>
+                    <div class="edition-card-copy">
+                      Careful reading, no countdown pressure, full focus on the
+                      evidence.
+                    </div>
+                    <div class="edition-card-tag">Best for thoughtful play</div>
+                  </button>
+                  <button
+                    class="edition-card mode-card"
+                    id="mode-timed"
+                    type="button"
+                    data-mode="timed"
+                  >
+                    <span class="edition-card-badge">Selected Mode</span>
+                    <div class="edition-card-name">Timed</div>
+                    <div class="edition-card-copy">
+                      Same investigation, but with a live countdown pushing you
+                      toward instinctive calls.
+                    </div>
+                    <div class="edition-card-tag">For fast, risky decisions</div>
+                  </button>
+                </div>
+              </div>
               <button class="primary-btn" id="start-btn" type="button">
                 Open the case file
               </button>
@@ -131,9 +212,16 @@
                     <div class="score-label">Score</div>
                     <div class="score-value" id="score-val">0</div>
                   </div>
+                  <div class="score-box" id="timer-box" hidden>
+                    <div class="score-label">Time Left</div>
+                    <div class="score-value" id="timer-val">00:00</div>
+                  </div>
                 </div>
                 <div class="progress-rail" aria-hidden="true">
                   <div class="progress-bar" id="progress-bar"></div>
+                </div>
+                <div class="score-status-row">
+                  <div class="score-status" id="mode-line">Mode: Standard</div>
                 </div>
                 <p class="sidebar-copy score-note">
                   File your call carefully. Each answer reveals the source and a
