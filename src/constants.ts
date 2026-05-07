@@ -65,7 +65,7 @@ export const EXHIBITS: Exhibit[] = [
     content: new URL("../Human or Not Images/Authentic Images/Easy/A1E.png", import.meta.url).href,
     headline: "Evidence Scan",
     deskNote: "Motocross rider on dirt bike in desert landscape",
-    source: "Creator/Owner: [Joey Chacon](https://unsplash.com/@joey_noside) | Equipment: SONY, ILCE-7M3 | Date: December 13, 2025 | Link: https://unsplash.com/photos/motocross-rider-on-dirt-bike-in-desert-landscape-gMwV3Mf9Uhg",
+    source: "Creator/Owner: Joey Chacon - https://unsplash.com/@joey_noside | Equipment: SONY, ILCE-7M3 | Date: December 13, 2025 | Link: https://unsplash.com/photos/motocross-rider-on-dirt-bike-in-desert-landscape-gMwV3Mf9Uhg",
     hint: "Source details are listed above.",
     difficulty: 'Easy'
   },
@@ -87,7 +87,7 @@ export const EXHIBITS: Exhibit[] = [
     content: new URL("../Human or Not Images/Authentic Images/Easy/A2E.png", import.meta.url).href,
     headline: "Evidence Scan",
     deskNote: "A person walks down a narrow street between buildings.",
-    source: "Creator/Owner: [Paul Yong](https://unsplash.com/@paulysj) | Equipment: Panasonic, DC-GX9 | Date: February 6, 2026 | Link: https://unsplash.com/photos/a-person-walks-down-a-narrow-street-between-buildings-lapkZvboG3M",
+    source: "Creator/Owner: Paul Yong - https://unsplash.com/@paulysj | Equipment: Panasonic, DC-GX9 | Date: February 6, 2026 | Link: https://unsplash.com/photos/a-person-walks-down-a-narrow-street-between-buildings-lapkZvboG3M",
     hint: "Source details are listed above.",
     difficulty: 'Easy'
   },
@@ -109,7 +109,7 @@ export const EXHIBITS: Exhibit[] = [
     content: new URL("../Human or Not Images/Authentic Images/Easy/A3E.png", import.meta.url).href,
     headline: "Evidence Scan",
     deskNote: "Man in black crew neck t shirt and gray pants standing on black asphalt road",
-    source: "Creator/Owner: [Brian Lundquist](https://unsplash.com/@bwl667) | Equipment: FUJIFILM, X-T4 | Date: February 26, 2021 | Link: https://unsplash.com/photos/man-in-black-crew-neck-t-shirt-and-gray-pants-standing-on-black-asphalt-road-during-GP_9VjWarps",
+    source: "Creator/Owner: Brian Lundquist - https://unsplash.com/@bwl667 | Equipment: FUJIFILM, X-T4 | Date: February 26, 2021 | Link: https://unsplash.com/photos/man-in-black-crew-neck-t-shirt-and-gray-pants-standing-on-black-asphalt-road-during-GP_9VjWarps",
     hint: "Source details are listed above.",
     difficulty: 'Easy'
   },
@@ -165,7 +165,7 @@ export const EXHIBITS: Exhibit[] = [
     content: new URL("../Human or Not Images/Authentic Images/Easy/A4E.png", import.meta.url).href,
     headline: "Evidence Scan",
     deskNote: "Man doing skateboard tricks",
-    source: "Creator/Owner: [Daniel Koponyas](https://unsplash.com/@kopidanny) | Equipment: Canon, EOS 750D | Date: August 17, 2018 in Manhattan, New York, United States | Link: https://unsplash.com/photos/man-doing-skateboard-tricks-gxC8OUPUeUUMan",
+    source: "Creator/Owner: Daniel Koponyas - https://unsplash.com/@kopidanny | Equipment: Canon, EOS 750D | Date: August 17, 2018 in Manhattan, New York, United States | Link: https://unsplash.com/photos/man-doing-skateboard-tricks-gxC8OUPUeUUMan",
     hint: "Source details are listed above.",
     difficulty: 'Easy'
   },
@@ -234,7 +234,7 @@ export const EXHIBITS: Exhibit[] = [
     content: new URL("../Human or Not Images/Authentic Images/Medium/A1M.png", import.meta.url).href,
     headline: "Evidence Scan",
     deskNote: "A man walking down a street next to tall buildings",
-    source: "Creator/Owner: [MAK](https://unsplash.com/@mak_jp) | Equipment: FUJIFILM, X-T20 | Date: February 4, 2023 | Link: https://unsplash.com/photos/a-man-walking-down-a-street-next-to-tall-buildings-ixm2fXdVXWE",
+    source: "Creator/Owner: MAK - https://unsplash.com/@mak_jp | Equipment: FUJIFILM, X-T20 | Date: February 4, 2023 | Link: https://unsplash.com/photos/a-man-walking-down-a-street-next-to-tall-buildings-ixm2fXdVXWE",
     hint: "Source details are listed above.",
     difficulty: 'Medium'
   },
@@ -245,7 +245,7 @@ export const EXHIBITS: Exhibit[] = [
     content: new URL("../Human or Not Images/AI Images/Medium/AI1M.png", import.meta.url).href,
     headline: "Evidence Scan",
     deskNote: "Golden sunlight filters through blinds in a quiet diner, casting warm rays on the floor as a lone figure sits in a booth, creating a serene vibe.",
-    source: "Title: Golden Diner Solitude | Creator/Owner: [Sam Schwartz Creations](https://www.lummi.ai/creator/schwartzs2001-rxeo0) | Link: https://www.lummi.ai/photo/golden-diner-solitude-bbuqb",
+    source: "Title: Golden Diner Solitude | Creator/Owner: Sam Schwartz Creations - https://www.lummi.ai/creator/schwartzs2001-rxeo0 | Link: https://www.lummi.ai/photo/golden-diner-solitude-bbuqb",
     hint: "Source details are listed above.",
     difficulty: 'Medium'
   },
@@ -256,7 +256,7 @@ export const EXHIBITS: Exhibit[] = [
     content: new URL("../Human or Not Images/Authentic Images/Medium/A2M.png", import.meta.url).href,
     headline: "Evidence Scan",
     deskNote: "A young woman in a white dress stands near flowers",
-    source: "Creator/Owner: [Richmond Fajardo](https://unsplash.com/@ritchimondo_faharudo777) | Date: April 7, 2026 at 𝒪𝓇𝑜𝓆𝓊𝒾𝑒𝓉𝒶 𝒞𝒾𝓉𝓎 𝑀𝒾𝓃𝒹𝒶𝓃𝒶𝑜 𝑀𝒾𝓈𝒶𝓂𝒾𝓈 𝒪𝒸𝒸𝒾𝒹𝑒𝓃𝓉𝒶𝓁 | Link: https://unsplash.com/photos/a-young-woman-in-a-white-dress-stands-near-flowers-u8sXK_c6pyk | Person in photo: 𝔍𝔲𝔩𝔦𝔞𝔫𝔞 ℜ𝔬𝔞",
+    source: "Creator/Owner: Richmond Fajardo - https://unsplash.com/@ritchimondo_faharudo777 | Date: April 7, 2026 at 𝒪𝓇𝑜𝓆𝓊𝒾𝑒𝓉𝒶 𝒞𝒾𝓉𝓎 𝑀𝒾𝓃𝒹𝒶𝓃𝒶𝑜 𝑀𝒾𝓈𝒶𝓂𝒾𝓈 𝒪𝒸𝒸𝒾𝒹𝑒𝓃𝓉𝒶𝓁 | Link: https://unsplash.com/photos/a-young-woman-in-a-white-dress-stands-near-flowers-u8sXK_c6pyk | Person in photo: 𝔍𝔲𝔩𝔦𝔞𝔫𝔞 ℜ𝔬𝔞",
     hint: "Source details are listed above.",
     difficulty: 'Medium'
   },
@@ -267,7 +267,7 @@ export const EXHIBITS: Exhibit[] = [
     content: new URL("../Human or Not Images/AI Images/Medium/AI2M.png", import.meta.url).href,
     headline: "Evidence Scan",
     deskNote: "A group of people walking through a vibrant red corridor, with one individual in yellow standing out among the dark-clad figures.",
-    source: "Title: Corridor Walkers | Creator/Owner: [Sam Stoof](https://www.lummi.ai/creator/samstoof) | Link: https://www.lummi.ai/illustration/corridor-walkers-kirkn",
+    source: "Title: Corridor Walkers | Creator/Owner: Sam Stoof - https://www.lummi.ai/creator/samstoof | Link: https://www.lummi.ai/illustration/corridor-walkers-kirkn",
     hint: "Source details are listed above.",
     difficulty: 'Medium'
   },
@@ -278,7 +278,7 @@ export const EXHIBITS: Exhibit[] = [
     content: new URL("../Human or Not Images/Authentic Images/Medium/A3M.png", import.meta.url).href,
     headline: "Evidence Scan",
     deskNote: "A woman in a bikini laying on a fallen tree",
-    source: "Creator/Owner: [Andrea Pipitone](https://unsplash.com/@takeshi_milka) | Equipment: NIKON CORPORATION, NIKON D5300 | Date: June 15, 2023 | Link: https://unsplash.com/photos/a-woman-in-a-bikini-laying-on-a-fallen-tree-dIcdpSBwPzI",
+    source: "Creator/Owner: Andrea Pipitone - https://unsplash.com/@takeshi_milka | Equipment: NIKON CORPORATION, NIKON D5300 | Date: June 15, 2023 | Link: https://unsplash.com/photos/a-woman-in-a-bikini-laying-on-a-fallen-tree-dIcdpSBwPzI",
     hint: "Source details are listed above.",
     difficulty: 'Medium'
   },
@@ -334,7 +334,7 @@ export const EXHIBITS: Exhibit[] = [
     content: new URL("../Human or Not Images/Authentic Images/Medium/A4M.png", import.meta.url).href,
     headline: "Evidence Scan",
     deskNote: "Beautiful Chinese Buddhist temple with traditional architecture and intricate designs.",
-    source: "Creator/Owner: [Lawrence Suzara](https://www.pexels.com/@lawrencesuzara/) | Date: November 10th, 2018 | Link: Photo by Lawrence Suzara from Pexels: https://www.pexels.com/photo/low-angle-photo-of-temple-1581555/",
+    source: "Creator/Owner: Lawrence Suzara - https://www.pexels.com/@lawrencesuzara/ | Date: November 10th, 2018 | Link: https://www.pexels.com/photo/low-angle-photo-of-temple-1581555/",
     hint: "Source details are listed above.",
     difficulty: 'Medium'
   },
@@ -414,7 +414,7 @@ export const EXHIBITS: Exhibit[] = [
     content: new URL("../Human or Not Images/AI Images/Hard/AI1H.png", import.meta.url).href,
     headline: "Evidence Scan",
     deskNote: "Minimalist 'MEWED' perfume bottle surrounded by dried flowers, creating an elegant and serene composition.",
-    source: "Title: Minimalist Perfume Bottle with Dried Flowers | Creator/Owner: [lébéa](https://www.lummi.ai/creator/lebea) | Link: https://www.lummi.ai/photo/minimalist-perfume-bottle-with-dried-flowers-4nnkq",
+    source: "Title: Minimalist Perfume Bottle with Dried Flowers | Creator/Owner: lébéa - https://www.lummi.ai/creator/lebea | Link: https://www.lummi.ai/photo/minimalist-perfume-bottle-with-dried-flowers-4nnkq",
     hint: "Source details are listed above.",
     difficulty: 'Hard'
   },
@@ -436,7 +436,7 @@ export const EXHIBITS: Exhibit[] = [
     content: new URL("../Human or Not Images/AI Images/Hard/AI2H.png", import.meta.url).href,
     headline: "Evidence Scan",
     deskNote: "Minimalist perfume bottle on lush green moss, blending luxury and nature with sleek design and earthy textures.",
-    source: "Title: Perfume on Moss Display | Creator/Owner: [Daniil Filatov](https://www.lummi.ai/creator/filatov.design) | Link: [https://www.lummi.ai/photo/minimalist-perfume-bottle-with-dried-flowers-4nnkq](https://www.lummi.ai/photo/perfume-on-moss-display-vawwr)",
+    source: "Title: Perfume on Moss Display | Creator/Owner: Daniil Filatov - https://www.lummi.ai/creator/filatov.design | Link: https://www.lummi.ai/photo/perfume-on-moss-display-vawwr",
     hint: "Source details are listed above.",
     difficulty: 'Hard'
   },
@@ -447,7 +447,7 @@ export const EXHIBITS: Exhibit[] = [
     content: new URL("../Human or Not Images/Authentic Images/Hard/A3H.png", import.meta.url).href,
     headline: "Evidence Scan",
     deskNote: "A blue record player with a record on it",
-    source: "Creator/Owner: [Clay Banks](https://unsplash.com/@claybanks) | Equipment: SONY, ILCE-7M4 | Date: March 9, 2026 | Link: https://unsplash.com/photos/a-blue-record-player-with-a-record-on-it-YZZgAMftFuQ",
+    source: "Creator/Owner: Clay Banks - https://unsplash.com/@claybanks | Equipment: SONY, ILCE-7M4 | Date: March 9, 2026 | Link: https://unsplash.com/photos/a-blue-record-player-with-a-record-on-it-YZZgAMftFuQ",
     hint: "Source details are listed above.",
     difficulty: 'Hard'
   },
@@ -481,7 +481,7 @@ export const EXHIBITS: Exhibit[] = [
     content: new URL("../Human or Not Images/AI Images/Hard/AI3H.png", import.meta.url).href,
     headline: "Evidence Scan",
     deskNote: "A black leather jacket with a classic design, featuring a front zipper, side pockets, and ribbed cuffs, displayed on a white background.",
-    source: "Title: Classic Leather Jacket | Creator/Owner: [Sam Stoof](https://www.lummi.ai/creator/samstoof)",
+    source: "Title: Classic Leather Jacket | Creator/Owner: Sam Stoof - https://www.lummi.ai/creator/samstoof",
     hint: "Source details are listed above.",
     difficulty: 'Hard'
   },
@@ -503,7 +503,7 @@ export const EXHIBITS: Exhibit[] = [
     content: new URL("../Human or Not Images/Authentic Images/Hard/A4H.png", import.meta.url).href,
     headline: "Evidence Scan",
     deskNote: "A woman in a flowing red dress reclines confidently on rugged coastal rocks, illuminated by warm sunlight. The bright blue sky and calm sea create a striking contrast with her vibrant outfit and relaxed, graceful pose.",
-    source: "Creator/Owner: [sammy swae](https://unsplash.com/@sammyswae) | Equipment: SONY, ILCE-7M3 | Date: November 18, 2025 | Link: https://unsplash.com/t/people?asset=%5B%22Photos%22%2C%7B%22slug%22%3A%22young-woman-in-red-dress-by-the-sea--PLgFxbrcB0%22%7D%5D",
+    source: "Creator/Owner: sammy swae - https://unsplash.com/@sammyswae | Equipment: SONY, ILCE-7M3 | Date: November 18, 2025 | Link: https://unsplash.com/t/people?asset=%5B%22Photos%22%2C%7B%22slug%22%3A%22young-woman-in-red-dress-by-the-sea--PLgFxbrcB0%22%7D%5D",
     hint: "Source details are listed above.",
     difficulty: 'Hard'
   }

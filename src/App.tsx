@@ -88,6 +88,59 @@ const Button = ({ children, onClick, variant = 'primary', className = "" }: { ch
   </button>
 );
 
+const SourceDetails = ({ source }: { source: string }) => {
+  const renderValue = (value: string) => {
+    const urlPattern = /(https?:\/\/[^\s|]+)/g;
+    const parts = value.split(urlPattern);
+
+    return parts.map((part, index) => {
+      if (!part.startsWith('http://') && !part.startsWith('https://')) {
+        return <React.Fragment key={`${part}-${index}`}>{part}</React.Fragment>;
+      }
+
+      return (
+        <a
+          key={part}
+          href={part}
+          target="_blank"
+          rel="noreferrer"
+          className="text-paper underline decoration-paper/30 underline-offset-4 transition-colors hover:text-news-red"
+        >
+          {part}
+        </a>
+      );
+    });
+  };
+
+  const details = source
+    .split(' | ')
+    .map((part) => {
+      const separator = part.indexOf(':');
+      if (separator === -1) return null;
+
+      return {
+        label: part.slice(0, separator).trim(),
+        value: part.slice(separator + 1).trim(),
+      };
+    })
+    .filter((detail): detail is { label: string; value: string } => Boolean(detail?.label && detail.value));
+
+  if (details.length <= 1) {
+    return <span className="text-sm font-serif italic">{renderValue(source)}</span>;
+  }
+
+  return (
+    <dl className="mt-2 grid gap-2 text-left">
+      {details.map((detail) => (
+        <div key={`${detail.label}-${detail.value}`} className="grid gap-1 sm:grid-cols-[7rem_1fr] sm:gap-3">
+          <dt className="text-[10px] font-mono uppercase tracking-wider text-paper/40">{detail.label}</dt>
+          <dd className="break-words text-sm font-serif leading-snug text-paper/85">{renderValue(detail.value)}</dd>
+        </div>
+      ))}
+    </dl>
+  );
+};
+
 // --- Main App ---
 
 export default function App() {
@@ -471,7 +524,7 @@ export default function App() {
                         {currentGuess === currentExhibit.origin ? <CheckCircle2 size={160} /> : <XCircle size={160} />}
                       </div>
 
-                      <div className="flex items-start justify-between relative z-10">
+                      <div className="grid items-center gap-6 relative z-10 lg:grid-cols-[1fr_minmax(18rem,24rem)]">
                         <div className="space-y-2">
                           <div className="flex items-center gap-3">
                             {currentGuess === currentExhibit.origin ? (
@@ -485,9 +538,9 @@ export default function App() {
                             This exhibit was <span className="text-news-red uppercase">{currentExhibit.origin === 'ai' ? 'AI-Generated' : 'Human-Made'}</span>
                           </h4>
                         </div>
-                        <div className="text-right">
+                        <div className="border-t border-paper/15 pt-4 lg:border-l lg:border-t-0 lg:pl-6 lg:pt-0">
                           <span className="text-[10px] font-mono uppercase text-paper/40 block">Source</span>
-                          <span className="text-sm font-serif italic">{currentExhibit.source}</span>
+                          <SourceDetails source={currentExhibit.source} />
                         </div>
                       </div>
 
