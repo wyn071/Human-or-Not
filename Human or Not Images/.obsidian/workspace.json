@@ -1,0 +1,235 @@
+{
+  "main": {
+    "id": "833ae561d5da62dc",
+    "type": "split",
+    "children": [
+      {
+        "id": "240d8ee6e9ffea66",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "570485afe7e48d1d",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Authentic Image Notes/Hard/A1H.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "A1H"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "836a89434a3f1f21",
+    "type": "split",
+    "children": [
+      {
+        "id": "4eaf46e36d98b9d1",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "716725577bdf8413",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical",
+                "autoReveal": false
+              },
+              "icon": "lucide-folder-closed",
+              "title": "Files"
+            }
+          },
+          {
+            "id": "e1c003d1a8b97725",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              },
+              "icon": "lucide-search",
+              "title": "Search"
+            }
+          },
+          {
+            "id": "25c012e492bb16c6",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {},
+              "icon": "lucide-bookmark",
+              "title": "Bookmarks"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "right": {
+    "id": "f64b09239233f53f",
+    "type": "split",
+    "children": [
+      {
+        "id": "03c230314f4405c5",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "d2c3882bf6ed1a52",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "AI Image Notes/Hard/AI12H.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-coming-in",
+              "title": "Backlinks for AI12H"
+            }
+          },
+          {
+            "id": "c5407108f3cdebeb",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "AI Image Notes/Hard/AI12H.md",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-going-out",
+              "title": "Outgoing links from AI12H"
+            }
+          },
+          {
+            "id": "fdda58cd69812a78",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-tags",
+              "title": "Tags"
+            }
+          },
+          {
+            "id": "cd2231ca2f13d153",
+            "type": "leaf",
+            "state": {
+              "type": "all-properties",
+              "state": {
+                "sortOrder": "frequency",
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-archive",
+              "title": "All properties"
+            }
+          },
+          {
+            "id": "9a91498faab7413b",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "AI Image Notes/Hard/AI12H.md",
+                "followCursor": false,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-list",
+              "title": "Outline of AI12H"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:Open quick switcher": false,
+      "graph:Open graph view": false,
+      "canvas:Create new canvas": false,
+      "daily-notes:Open today's daily note": false,
+      "templates:Insert template": false,
+      "command-palette:Open command palette": false,
+      "bases:Create new base": false
+    }
+  },
+  "active": "570485afe7e48d1d",
+  "lastOpenFiles": [
+    "AI Image Notes/Easy/AI1E.md",
+    "AI Image Notes/Easy/AI2E.md",
+    "AI Image Notes/Easy/AI3E.md",
+    "AI Image Notes/Easy/AI4E.md",
+    "AI Image Notes/Easy/AI5E.md",
+    "AI Image Notes/Easy/AI6E.md",
+    "AI Image Notes/Easy/AI7E.md",
+    "AI Image Notes/Easy/AI8E.md",
+    "AI Image Notes/Hard/AI1H.md",
+    "AI Image Notes/Hard/AI2H.md",
+    "AI Image Notes/Hard/AI3H.md",
+    "AI Image Notes/Hard/AI4H.md",
+    "AI Image Notes/Hard/AI5H.md",
+    "AI Image Notes/Hard/AI6H.md",
+    "AI Image Notes/Hard/AI7H.md",
+    "AI Image Notes/Hard/AI8H.md",
+    "AI Image Notes/Hard/AI9H.md",
+    "AI Image Notes/Hard/AI10H.md",
+    "AI Image Notes/Hard/AI11H.md",
+    "AI Image Notes/Hard/AI12H.md",
+    "AI Image Notes/Hard/AI13H.md",
+    "AI Image Notes/Hard/AI14H.md",
+    "AI Image Notes/Hard/AI15H.md",
+    "AI Image Notes/Hard/AI16H.md",
+    "AI Image Notes/Medium/AI1M.md",
+    "AI Image Notes/Medium/AI2M.md",
+    "Authentic Images/Hard/A10H.png",
+    "Authentic Images/Hard/A15H.png",
+    "Authentic Images/Hard/A16H.png",
+    "Authentic Images/Hard/A9H.png",
+    "Authentic Images/Hard/A11H.png",
+    "Authentic Images/Medium/A2M.png",
+    "Authentic Images/Medium/A9M.png",
+    "Authentic Images/Medium/A8M.png",
+    "Authentic Images/Medium/A7M.png",
+    "Authentic Images/Medium/A6M.png",
+    "Authentic Images/Medium",
+    "Authentic Images/Hard",
+    "Authentic Images/Easy",
+    "AI Images/Hard",
+    "AI Images/Medium",
+    "AI Images/Easy",
+    "Authentic Images",
+    "Authentic Image Notes/Hard",
+    "Authentic Image Notes/Medium",
+    "Authentic Image Notes/Easy"
+  ]
+}
